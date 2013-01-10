@@ -4,6 +4,7 @@ module.exports = function(grunt) {
 
   // Project configuration.
   grunt.initConfig({
+    // Package meta data
     pkg: '<json:package.json>',
     meta: {
       banner: '/*! <%= pkg.name %> - v<%= pkg.version %> - ' +
@@ -12,11 +13,21 @@ module.exports = function(grunt) {
         '* Copyright (c) <%= grunt.template.today("yyyy") %> Ensighten;' +
         ' Licensed <%= _.pluck(pkg.licenses, "type").join(", ") %> */'
     },
+
+    // Download public resources
+    curl: {
+      'src/public/js/jquery.js': 'http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.js',
+      'src/public/js/require.js': 'https://raw.github.com/jrburke/requirejs/master/require.js',
+      'src/public/js/Sauron.js': 'https://raw.github.com/Ensighten/Sauron/master/dist/Sauron.require.js',
+      'src/public/js/Builder.js': 'https://raw.github.com/Ensighten/Builder/master/dist/Builder.require.jquery.js'
+    },
+
+    // Concatenate and minify repository
     concat: {
       halo: {
         src: [
-          // Banner and require first
-          '<banner:meta.banner>', 'src/public/js/require.js',
+          // Banner, jquery, and require first
+          '<banner:meta.banner>', 'src/public/jquery.js', 'src/public/js/require.js',
 
           // Then Sauron.require and Builder.require.jquery.keys
           'src/public/js/Sauron.js', 'src/public/js/Builder.js',
@@ -36,16 +47,22 @@ module.exports = function(grunt) {
         dest: 'dist/halo.min.js'
       }
     },
+
+    // Testing and linting
     qunit: {
       files: ['test/**/*.html']
     },
     lint: {
       files: ['grunt.js', 'src/**/*.js', 'test/*.js']
     },
+
+    // Watch files
     watch: {
       files: ['<config:lint.files>', '<config:qunit.files>'],
       tasks: 'default'
     },
+
+    // Test options
     jshint: {
       options: {
         curly: true,
@@ -71,8 +88,14 @@ module.exports = function(grunt) {
     uglify: {}
   });
 
-  // Alias test as qunit
+  // Load in grunt-curl
+  grunt.loadNpmTasks('grunt-curl');
+
+  // Alias qunit as test
   grunt.registerTask('test', 'qunit');
+
+  // Alias update as curl
+  grunt.registerTask('update', 'curl');
 
   // Default task.
   grunt.registerTask('default', 'lint concat min test');
