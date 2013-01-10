@@ -1,0 +1,41 @@
+{
+  "name": "Halo",
+  "description": "Mediator based client-side MVC framework heavily inspired by Addy Osmani's talks on Aura.",
+  "version": "1.0.0",
+  "homepage": "https://github.com/Ensighten/Halo",
+  "author": {
+    "name": "Ensighten",
+    "email": "support@ensighten.com",
+    "url": "https://www.ensighten.com/"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/Ensighten/Halo.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Ensighten/Halo/issues"
+  },
+  "licenses": [
+    {
+      "type": "MIT",
+      "url": "https://github.com/Ensighten/Halo/blob/master/LICENSE-MIT"
+    }
+  ],
+  "main": "src/Halo.js",
+  "scripts": {
+    "test": "grunt qunit"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "grunt": "~0.3.17"
+  },
+  "keywords": [
+    "mvc",
+    "client-side",
+    "browser",
+    "halo",
+    "aura",
+    "mediator",
+    "loose"
+  ]
+}
