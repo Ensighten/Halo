@@ -14,21 +14,33 @@ module.exports = function(grunt) {
     },
     concat: {
       halo: {
-        src: ['<banner:meta.banner>', '<file_strip_banner:src/<%= pkg.name %>.js>'],
-        dest: 'dist/<%= pkg.name %>.js'
+        src: [
+          // Banner first
+          '<banner:meta.banner>',
+
+          // Then require and Sauron (require flavor)
+          'public/require.js', 'public/Sauron.js',
+
+          // Then controllers
+          'controllers/BaseController.js', 'controllers/HtmlController.js',
+
+          // Then models
+          'models/CrudModel.js', 'models/SocketModel.js'
+        ],
+        dest: 'dist/halo.js'
       }
     },
     min: {
       halo: {
-        src: ['<banner:meta.banner>', '<config:concat.halo.dest>'],
-        dest: 'dist/<%= pkg.name %>.min.js'
+        src: '<config:concat.halo.src>',
+        dest: 'dist/halo.min.js'
       }
     },
     qunit: {
       files: ['test/**/*.html']
     },
     lint: {
-      files: ['grunt.js', 'src/**/*.js', 'test/**/*.js']
+      files: ['grunt.js', 'src/**/*.js', 'test/*.js']
     },
     watch: {
       files: ['<config:lint.files>', '<config:qunit.files>'],
