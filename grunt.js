@@ -15,17 +15,17 @@ module.exports = function(grunt) {
     concat: {
       halo: {
         src: [
-          // Banner first
-          '<banner:meta.banner>',
+          // Banner and require first
+          '<banner:meta.banner>', 'src/public/js/require.js',
 
-          // Then require and Sauron (require flavor)
-          'public/require.js', 'public/Sauron.js',
+          // Then Sauron.require and Builder.require.jquery.keys
+          'src/public/js/Sauron.js', 'src/public/js/Builder.js',
 
           // Then controllers
-          'controllers/BaseController.js', 'controllers/HtmlController.js',
+          'src/controllers/BaseController.js', 'src/controllers/HtmlController.js',
 
           // Then models
-          'models/CrudModel.js', 'models/SocketModel.js'
+          'src/models/CrudModel.js', 'src/models/SocketModel.js'
         ],
         dest: 'dist/halo.js'
       }
