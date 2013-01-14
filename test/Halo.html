@@ -3,26 +3,15 @@
 <head>
   <meta charset="utf-8">
   <title>Halo Test Suite</title>
-  <!-- Load local jQuery. This can be overridden with a ?jquery=___ param. -->
-  <script src="libs/jquery-loader.js"></script>
   <!-- Load local QUnit. -->
   <link rel="stylesheet" href="libs/qunit/qunit.css" media="screen">
   <script src="libs/qunit/qunit.js"></script>
-  <!-- Removing access to jQuery and $. But it'll still be available as _$, if
-       you REALLY want to mess around with jQuery in the console. REMEMBER WE
-       ARE TESTING A PLUGIN HERE, THIS HELPS ENSURE BEST PRACTICES. REALLY. -->
-  <script>window._$ = jQuery.noConflict(true);</script>
   <!-- Load local requirejs. -->
   <script src="libs/requirejs/require.js"></script>
   <script>
-    // Define jQuery via requirejs.
-    define('jquery', function () {
-      return window._$;
-    });
-
-    // Configure requirejs to load from src.
+    // Configure requirejs to load from src/public.
     require.config({
-      'baseUrl': '../src'
+      'baseUrl': '../src/public'
     });
   </script>
   <!-- Load test. -->
@@ -30,12 +19,12 @@
     (function () {
       // Inspired by grunt's jquery-loader
       // Grab the test number
-      var testArr = window.location.search.match(/[?&]test=([^&]*)[&$]/) || [],
+      var testArr = window.location.search.match(/[?&]test=([^&]*)(&|$)/) || [],
           testPath = testArr[1] || '';
 
       // Inject the test
       // Forgive me father for I have sinned.
-      document.write('<script src="' + testPath + '"></script>');
+      document.write('<scr' + 'ipt src="' + testPath + '"></scr' + 'ipt>');
     }());
   </script>
 </head>

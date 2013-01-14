@@ -138,7 +138,5 @@ module.exports = function(grunt) {
   grunt.registerTask('default', 'build watch');
 
   // Set up up build task
-  // grunt.registerTask('build', 'lint concat min test');
-  grunt.registerTask('build', 'lint');
-
+  grunt.registerTask('build', 'lint concat min test');
 };
