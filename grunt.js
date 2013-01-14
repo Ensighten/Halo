@@ -97,7 +97,11 @@ module.exports = function(grunt) {
   // Alias update as curl
   grunt.registerTask('update', 'curl');
 
-  // Default task.
-  grunt.registerTask('default', 'lint concat min test');
+  // By default, build and watch
+  grunt.registerTask('default', 'build watch');
+
+  // Set up up build task
+  // grunt.registerTask('build', 'lint concat min test');
+  grunt.registerTask('build', 'lint');
 
 };
