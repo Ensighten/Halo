@@ -29,8 +29,8 @@ module.exports = function(grunt) {
           // Banner, jquery, and require first
           '<banner:meta.banner>', 'src/public/jquery.js', 'src/public/js/require.js',
 
-          // Then Sauron.require and Builder.require.jquery.keys
-          'src/public/js/Sauron.js', 'src/public/js/Builder.js',
+          // Then Sauron.require, Builder.require.jquery, and mvc
+          'src/public/js/Sauron.js', 'src/public/js/Builder.js', 'src/public/js/mvc.js',
 
           // Then controllers
           'src/controllers/BaseController.js', 'src/controllers/HtmlController.js',
