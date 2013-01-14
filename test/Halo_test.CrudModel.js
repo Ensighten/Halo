@@ -29,12 +29,12 @@ module('jQuery#awesome', {
 
 test('is chainable', function() {
   expect(1);
-
+console.log('hey');
   // Stop the test while we load jQuery.
   stop();
 
   // Load jQuery.
-  require(['jquery', 'Halo'], function ($) {
+  require(['jquery'], function ($) {
     // Continue testing.
     start();
 
