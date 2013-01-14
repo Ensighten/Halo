@@ -342,7 +342,7 @@ return (function () {
       that.log('CHANNEL UPDATED TO:', that.channel());
 
       // If require is present
-      if (require) {
+      if (require && require.getContext) {
         var controllerUrl = require.getContext().config.paths._controllerDir || '',
             url = controllerUrl + controller;
 
@@ -386,7 +386,7 @@ return (function () {
       that.log('CHANNEL UPDATED TO:', that.channel());
 
       // If require is present
-      if (require) {
+      if (require && require.getContext) {
         var modelUrl = require.getContext().config.paths._modelDir || '',
             url = modelUrl + model;
 

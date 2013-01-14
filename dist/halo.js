@@ -2340,7 +2340,7 @@ return (function () {
       that.log('CHANNEL UPDATED TO:', that.channel());
 
       // If require is present
-      if (require) {
+      if (require && require.getContext) {
         var controllerUrl = require.getContext().config.paths._controllerDir || '',
             url = controllerUrl + controller;
 
@@ -2384,7 +2384,7 @@ return (function () {
       that.log('CHANNEL UPDATED TO:', that.channel());
 
       // If require is present
-      if (require) {
+      if (require && require.getContext) {
         var modelUrl = require.getContext().config.paths._modelDir || '',
             url = modelUrl + model;
 
@@ -2703,7 +2703,8 @@ define(function () {
     'load': function (name, req, onLoad, config) {
       // Determine the type and localize paths
       var type = name.charAt(0),
-          paths = config.paths;
+          paths = config.paths,
+          baseUrl = config.baseUrl || '';
 
       // Slice up string and set up fallbacks for path parts
       var file = name.substring(2),
@@ -2713,22 +2714,22 @@ define(function () {
       // Load models and controllers as JS and views via the text plugin
       switch (type) {
         case 'm':
-          dir = paths._modelDir || '../models';
+          dir = paths._modelDir || '../../models';
           ext = paths._modelExt || '.js';
           break;
         case 'v':
           prefix = 'text!';
-          dir = paths._viewDir || '../views';
+          dir = paths._viewDir || '../../views';
           ext = paths._viewExt || '.html';
           break;
         case 'c':
-          dir = paths._controllerDir || '../controllers';
+          dir = paths._controllerDir || '../../controllers';
           ext = paths._controllerExt || '.js';
           break;
       }
 
       // Generate the URI to load
-      var uri = prefix + dir + file + ext;
+      var uri = prefix + baseUrl + dir + '/' + file + ext;
 
       // Load up the module and return it
       require([uri], onLoad);

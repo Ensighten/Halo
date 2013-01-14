@@ -22,19 +22,20 @@
 
 module('A CrudModel');
 
-test('is chainable', function() {
+test('can be created', function() {
   expect(1);
-console.log('hey');
-  // Stop the test while we load jQuery.
-  stop();
 
-  // Load jQuery.
-  require(['jquery'], function ($) {
-    // Continue testing.
+  // Load CrudModel
+  stop();
+  require(['mvc!m/CrudModel'], function (CrudModel) {
     start();
 
-    // Not a bad test to run on collection methods.
-    var elems = $(this.selector).children();
-    strictEqual(elems.awesome(), elems, 'should be chainable');
+    // Create the model
+    var model = new CrudModel({
+          'name': 'abba',
+          'create': function () {},
+          'retrieve': function () {}
+        });
+    ok(model);
   });
 });
