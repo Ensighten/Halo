@@ -1,6 +1,34 @@
 /*global module:true */
+var path = require('path');
 module.exports = function(grunt) {
   var read = grunt.file.read;
+
+
+
+  // Register task for mapping out test files
+  grunt.registerHelper('test-files', function (htmlGlob, jsGlob) {
+console.log('aaa');
+    // Expand the html and js files
+    var htmlFiles = grunt.file.expandFiles(htmlGlob),
+        jsFiles = grunt.file.expandFiles(jsGlob);
+
+    // Extract the basename of the jsFiles
+console.log('aaa', htmlFiles, jsFiles);
+    var jsNames = jsFiles.map(path.basename);
+
+    // Create the power-set of htmlFiles and jsNames
+    var retArr = [];
+console.log('aaa');
+    htmlFiles.forEach(function (file) {
+      jsNames.forEach(function (test) {
+        retArr.push(file + '?test=' + test);
+      });
+    });
+
+    // Return the power set
+console.log('xxx', retArr);
+    return retArr;
+  });
 
   // Project configuration.
   grunt.initConfig({
@@ -48,10 +76,20 @@ module.exports = function(grunt) {
       }
     },
 
-    // Testing and linting
+    // Testing
     qunit: {
-      files: ['test/**/*.html']
+      // TODO: Get directive working inline
+      // files: '<test-files:Halo/*.html:Halo/*.js>'
+      files: 'test/*.html'
+      // files: grunt.task.directive('<test-files:test/*.html:test/Halo_test*.js>')
+      // files: grunt.task.helper('test-files', 'test/*.html', 'test/*.js')
     },
+    server: {
+      port: 8000,
+      base: '.'
+    }
+
+    // Linting
     lint: {
       files: [
         'grunt.js',
@@ -97,7 +135,7 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-curl');
 
   // Alias qunit as test
-  grunt.registerTask('test', 'qunit');
+  grunt.registerTask('test', 'server qunit');
 
   // Alias update as curl
   grunt.registerTask('update', 'curl');
