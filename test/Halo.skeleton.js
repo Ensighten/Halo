@@ -27,6 +27,22 @@
     "can be created with a memory mixin": true
   }
 }, {
+  "CrudModel#retrieve": {
+    "works as expected": true
+  }
+}, {
+  "CrudModel#create": {
+    "works as expected": true
+  }
+}, {
+  "CrudModel#update": {
+    "works as expected": true
+  }
+}, {
+  "CrudModel#delete": {
+    "works as expected": true
+  }
+}, {
 // TODO: Don't test SocketModel further due to intended deprecation
   "A SocketModel": {
     "can be created": true,
