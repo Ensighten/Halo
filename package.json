@@ -23,7 +23,7 @@
   ],
   "main": "src/Halo.js",
   "scripts": {
-    "test": "grunt qunit"
+    "test": "grunt test"
   },
   "dependencies": {},
   "devDependencies": {
