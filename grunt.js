@@ -53,7 +53,7 @@ module.exports = function(grunt) {
       files: ['test/**/*.html']
     },
     lint: {
-      files: ['grunt.js', 'src/**/*.js', 'test/*.js']
+      files: ['grunt.js', 'src/{controllers,models}/**/*.js', 'test/*.js']
     },
 
     // Watch files
