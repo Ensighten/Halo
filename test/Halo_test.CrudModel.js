@@ -20,12 +20,7 @@
     raises(block, [expected], [message])
 */
 
-module('jQuery#awesome', {
-  // This will run before each test in this module.
-  setup: function() {
-    this.selector = '#qunit-fixture';
-  }
-});
+module('A CrudModel');
 
 test('is chainable', function() {
   expect(1);
