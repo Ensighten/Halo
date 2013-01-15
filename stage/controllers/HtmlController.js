@@ -1,4 +1,4 @@
-define("../../controllers/HtmlController",['Sauron', 'jquery', 'mvc!c/BaseController'], function (Sauron, $, BaseController) {
+define("../../controllers/HtmlController.js",['Sauron', 'jquery', 'mvc!c/BaseController'], function (Sauron, $, BaseController) {
   function noop() {}
   function autoCallback(callback) {
     callback();

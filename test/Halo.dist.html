@@ -8,15 +8,8 @@
   <script src="libs/qunit/qunit.js"></script>
   <!-- Load dist file. -->
   <script src="../dist/halo.js"></script>
-  <script>
-    // Configure requirejs to load from src/public.
-    require.config({
-      'baseUrl': '../src/public/js'
-    });
-  </script>
   <!-- Remove window.define since everything should be handled by dist. -->
   <script>
-  // TODO: This definitely will not work for socket.io =(
   var _define = window.define;
   delete window.define;
   </script>

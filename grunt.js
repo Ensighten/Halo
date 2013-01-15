@@ -37,18 +37,18 @@ module.exports = function(grunt) {
       Sauron: rjsDefine('Sauron'),
       Builder: rjsDefine('Builder'),
       mvc: rjsDefine('mvc'),
-      BaseController: rjsDefine('../../controllers/BaseController'),
-      HtmlController: rjsDefine('../../controllers/HtmlController'),
-      CrudModel: rjsDefine('../../models/CrudModel'),
-      SocketModel: rjsDefine('../../models/SocketModel')
+      BaseController: rjsDefine.js('../../controllers/BaseController'),
+      HtmlController: rjsDefine.js('../../controllers/HtmlController'),
+      CrudModel: rjsDefine.js('../../models/CrudModel'),
+      SocketModel: rjsDefine.js('../../models/SocketModel')
     },
 
     // Concatenate and minify repository
     concat: {
       halo: {
         src: [
-          // Banner, jquery, and require first
-          '<banner:meta.banner>', 'src/public/jquery.js', 'src/public/js/require.js',
+          // Banner, require, and jquery first
+          '<banner:meta.banner>', 'src/public/js/require.js', 'src/public/js/jquery.js',
 
           // Then socket.io
           // Socket.io uses anonymous define

@@ -14,4 +14,14 @@ function rjsDefine(obj) {
     }]
   };
 }
+
+function rjsDefineJS(module) {
+  var params = {file: module, module: module + '.js'},
+      retObj = rjsDefine(params);
+
+  // Return the retObj
+  return retObj;
+}
+rjsDefine.js = rjsDefineJS;
+
 module.exports = rjsDefine;

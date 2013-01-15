@@ -31,6 +31,4 @@
     "can be created": true,
     "has this.socket": true
   }
-}
-// TODO: Test dist -- probably a different HTML flavor ;)
-]
+}]

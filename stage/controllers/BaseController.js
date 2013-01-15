@@ -1,4 +1,4 @@
-define("../../controllers/BaseController",['Sauron'], function (Sauron) {
+define("../../controllers/BaseController.js",['Sauron'], function (Sauron) {
   function noop() {}
 
   /**
