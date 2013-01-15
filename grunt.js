@@ -28,16 +28,12 @@ module.exports = function(grunt) {
       'src/public/js/Builder.js': 'https://raw.github.com/Ensighten/Builder/master/dist/Builder.require.jquery.js'
     },
 
-    // Require-ify src
+    // Add require.js paths to files (src -> stage)
     replace: {
-      'socket.io': {
-        src: 'src/public/js/socket.io.js',
-        dest: 'stage/public/js/socket.io.js',
-        replacements: [{
-          from: 'define(',
-          to: 'define("io",'
-        }]
-      },
+      'socket.io': rjsDefine({
+        file: 'socket.io',
+        module: 'io'
+      }),
       Sauron: rjsDefine('Sauron'),
       Builder: rjsDefine('Builder'),
       mvc: rjsDefine('mvc'),
