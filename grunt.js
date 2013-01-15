@@ -1,30 +1,10 @@
 /*global module:true */
-var path = require('path');
 module.exports = function(grunt) {
   var read = grunt.file.read,
-      port = 8080,
-      server = 'http://localhost:' + port;
+      port = require('./utils/gruntConfig').port;
 
   // Register task for mapping out test files
-  grunt.registerHelper('test-files', function (htmlGlob, jsGlob) {
-    // Expand the html and js files
-    var htmlFiles = grunt.file.expandFiles(htmlGlob),
-        jsFiles = grunt.file.expandFiles(jsGlob);
-
-    // Extract the basename of the jsFiles
-    var jsNames = jsFiles.map(path.basename);
-
-    // Create the power-set of htmlFiles and jsNames
-    var retArr = [];
-    htmlFiles.forEach(function (file) {
-      jsNames.forEach(function (test) {
-        retArr.push(server + '/' + file + '?test=' + test);
-      });
-    });
-
-    // Return the power set
-    return retArr;
-  });
+  require('./utils/grunt-test-files')(grunt);
 
   // Project configuration.
   grunt.initConfig({
