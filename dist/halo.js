@@ -15337,7 +15337,7 @@ var swfobject=function(){var D="undefined",r="object",S="Shockwave Flash",W="Sho
 );
 
 if (typeof define === "function" && define.amd) {
-  define("io",[], function () { return io; });
+  define("socket.io",[], function () { return io; });
 }
 })();
 /*! Sauron - v1.1.0 - 2013-01-07

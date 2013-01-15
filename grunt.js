@@ -30,10 +30,7 @@ module.exports = function(grunt) {
 
     // Add require.js paths to files (src -> stage)
     replace: {
-      'socket.io': rjsDefine({
-        file: 'socket.io',
-        module: 'io'
-      }),
+      'socket.io': rjsDefine('socket.io'),
       Sauron: rjsDefine('Sauron'),
       Builder: rjsDefine('Builder'),
       mvc: rjsDefine('mvc'),
