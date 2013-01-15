@@ -50,7 +50,7 @@ test('can when started, calls `start`', function() {
 
     // Create the model
     var placeholder,
-        name = 'baseController#mixin',
+        name = 'baseController#start',
         model = new BaseController({
           'name': name,
           'start': function (data, cb) {
@@ -62,6 +62,38 @@ test('can when started, calls `start`', function() {
     // Get and set some data
     stop();
     Sauron.controller(name).start({'id': 'hello', 'val': 'world'}, function () {
+      start();
+
+      // Assert the placeholder
+      ok(placeholder);
+      strictEqual(placeholder.id, 'hello');
+      strictEqual(placeholder.val, 'world');
+    });
+  });
+});
+
+test('can when stopped, calls `stop`', function() {
+  expect(3);
+
+  // Load BaseController
+  stop();
+  require(['Sauron', 'mvc!c/BaseController'], function (Sauron, BaseController) {
+    start();
+
+    // Create the model
+    var placeholder,
+        name = 'baseController#stop',
+        model = new BaseController({
+          'name': name,
+          'stop': function (data, cb) {
+            placeholder = data;
+            if (cb) { cb(null); }
+          }
+        });
+
+    // Get and set some data
+    stop();
+    Sauron.controller(name).stop({'id': 'hello', 'val': 'world'}, function () {
       start();
 
       // Assert the placeholder
