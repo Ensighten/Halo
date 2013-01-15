@@ -52,6 +52,31 @@ module.exports = function(grunt) {
         dest: 'dist/halo.min.js'
       }
     },
+    requirejs: {
+      halo: {
+        options: {
+          optimize: 'none',
+          appDir: './src/',
+          baseUrl: './public/js/',
+          modules: [
+            // {name: 'src/public/require.js'},
+            {name: 'src/public/jquery.js'},
+            {name: 'src/public/socket.io.js'},
+            {name: 'src/public/Sauron.js'}
+
+          // // Then Sauron.require, Builder.require.jquery, and mvc
+          // 'src/public/js/Sauron.js', 'src/public/js/Builder.js', 'src/public/js/mvc.js',
+
+          // // Then controllers
+          // 'src/controllers/BaseController.js', 'src/controllers/HtmlController.js',
+
+          // // Then models
+          // 'src/models/CrudModel.js', 'src/models/SocketModel.js'
+          ]
+        }
+      }
+      // TODO: Min flavor
+    },
 
     // Testing
     qunit: {
@@ -108,6 +133,9 @@ module.exports = function(grunt) {
 
   // Load in grunt-curl
   grunt.loadNpmTasks('grunt-curl');
+
+  // Load in requirejs bindings
+  grunt.loadNpmTasks('grunt-contrib-requirejs');
 
   // Alias qunit as test
   grunt.registerTask('test', 'server test-only');
