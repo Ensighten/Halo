@@ -58,8 +58,8 @@ Each script is namespaced within require.js to its own filename (except for [req
 | [require.js][requirejs] | N/A                  | [AMD][amd] loader which exposes `require` and `define` globally.                                |
 | [jquery.js][jquery]     | `jquery`             | One does not simply describe [jQuery][jquery].                                                  |
 | [socket.io][socketio]   | `socket.io`          | Cross-browser WebSocket implementation.                                                         |
-| [Sauron][sauron]        | `Sauron`             | Mediator designed to provide a loose channel system for talking between models and controllers. |
-| [Builder][builder]      | `Builder`            | Build chain for client-side MVC views. You will <3 me later.                                  |
+| [Sauron][sauron]        | `Sauron`             | Mediator which provides a channel system for talking between models and controllers. |
+| [Builder][builder]      | `Builder`            | Build chain for client-side MVC views. You will `<3` me later.                                  |
 
 [requirejs]: http://requirejs.org/
 [jquery]: http://jquery.com
