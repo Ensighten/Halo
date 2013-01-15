@@ -15,26 +15,18 @@ In your web page:
 ```html
 <script src="dist/Halo.js"></script>
 <script>
-// Halo comes pre-packaged with require.js and jquery to get you up and running immediately
-
 // Define a controller. Each controller has its start/stop methods proxied via Sauron, a global mediator.
-// Note: It is suggested to not name your modules so the filename is used instead. We are naming this 'controllers/main' for the sake of a single file example.
 define('controllers/main', ['jquery', 'mvc!c/HtmlController'], function ($, HtmlController) {
-  // Specify the options for our controller
   var params = {
-    // Name of the controller
+    // Name of the controller -- this acts as the channel for Sauron
     'name': 'main',
     // Start method to call -- invoked via Sauron.controller('main').start(args);
     'start': function (data, cb) {
-      // Generate some content "<div>hello world</div>"
+      // Generate and callback with some content $("<div>hello world</div>")
       var $content = $('<div>' + data + '</div>');
-
-      // Call back with the content
       cb($content);
     }
   };
-
-  // Generate and return our controller
   return HtmlController(params);
 });
 
@@ -45,7 +37,7 @@ require(['Sauron', 'controllers/main'], function (Sauron) {
 
   // These are the (data, cb) passed to the 'start' defined above via Sauron, our global mediator.
   // The first parameter is stripped and used as the container for the called-back $content
-  Sauron.start($main, 'hello world', function () {
+  Sauron.controller('main').start($main, 'hello world', function () {
     // The callback is wrapped such that $content is automatically appended to $main
     $main.html(); // "<div>hello world</div>"
   });
@@ -61,6 +53,10 @@ require(['Sauron', 'controllers/main'], function (Sauron) {
 // It could be all of your client-side files inside `public`, `public/js`, `static`. As a result, our pre-compiled files are optimized for **this** folder struture where the `baseUrl` is `src/public/js`. This means that all routes are looked up from the `src/public/js` folder.
 
 // TODO: Notes on each and every .js within src
+
+// TODO: Use this within Documentation
+// Halo comes pre-packaged with require.js and jquery to get you up and running immediately
+
 
 ## Documentation
 _(Coming soon)_
