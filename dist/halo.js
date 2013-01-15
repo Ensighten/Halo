@@ -16357,7 +16357,7 @@ define("../../models/CrudModel.js",['Sauron'], function (Sauron) {
   return CrudModel;
 });
 /*global io:true*/
-define("../../models/SocketModel.js",['Sauron', 'mvc!m/CrudModel', 'socket.io'], function (Sauron, CrudModel) {
+define("../../models/SocketModel.js",['Sauron', 'mvc!m/CrudModel', 'socket.io'], function (Sauron, CrudModel, io) {
   // Create a socket which proxies all requests
   var href = window.location.href,
       isSecure = href.slice(0, 5) === 'https',
