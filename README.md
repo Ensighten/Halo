@@ -13,14 +13,54 @@ Download the [production version][min] ([vanilla][min] or [requirejs][min_requir
 In your web page:
 
 ```html
-<script src="jquery.js"></script>
-<script src="dist/Halo.min.js"></script>
+<script src="dist/Halo.js"></script>
 <script>
-jQuery(function($) {
-  $.awesome(); // "awesome"
+// Halo comes pre-packaged with require.js and jquery to get you up and running immediately
+
+// Define a controller. Each controller has its start/stop methods proxied via Sauron, a global mediator.
+// Note: It is suggested to not name your modules so the filename is used instead. We are naming this 'controllers/main' for the sake of a single file example.
+define('controllers/main', ['jquery', 'mvc!c/HtmlController'], function ($, HtmlController) {
+  // Specify the options for our controller
+  var params = {
+    // Name of the controller
+    'name': 'main',
+    // Start method to call -- invoked via Sauron.controller('main').start(args);
+    'start': function (data, cb) {
+      // Generate some content "<div>hello world</div>"
+      var $content = $('<div>' + data + '</div>');
+
+      // Call back with the content
+      cb($content);
+    }
+  };
+
+  // Generate and return our controller
+  return HtmlController(params);
+});
+
+// Require Sauron and our controller
+require(['Sauron', 'controllers/main'], function (Sauron) {
+  // Start the controller and render $content to $main
+  var $main = $('body');
+
+  // These are the (data, cb) passed to the 'start' defined above via Sauron, our global mediator.
+  // The first parameter is stripped and used as the container for the called-back $content
+  Sauron.start($main, 'hello world', function () {
+    // The callback is wrapped such that $content is automatically appended to $main
+    $main.html(); // "<div>hello world</div>"
+  });
 });
 </script>
 ```
+
+// TODO: We might want to simplify the example even more
+
+// TODO: Note about it is strongly suggested that you use the `src` folder and configure the `baseUrl` of require.js to point to the public js folder.
+
+// This is because we cannot predict the layout structure of your repository.
+// It could be all of your client-side files inside `public`, `public/js`, `static`. As a result, our pre-compiled files are optimized for **this** folder struture where the `baseUrl` is `src/public/js`. This means that all routes are looked up from the `src/public/js` folder.
+
+// TODO: Notes on each and every .js within src
 
 ## Documentation
 _(Coming soon)_
@@ -37,9 +77,6 @@ _Also, please don't edit files in the "dist" or "stage" subdirectories as they a
 While grunt can run the included unit tests via [PhantomJS](http://phantomjs.org/), this shouldn't be considered a substitute for the real thing. Please be sure to test the `test/*.html` unit test file(s) in _actual_ browsers.
 
 See the [Why does grunt complain that PhantomJS isn't installed?](https://github.com/gruntjs/grunt/blob/master/docs/faq.md#why-does-grunt-complain-that-phantomjs-isnt-installed) guide in the [Grunt FAQ](https://github.com/gruntjs/grunt/blob/master/docs/faq.md) for help with installing or troubleshooting PhantomJS.
-
-## Release History
-_(Nothing yet)_
 
 ## License
 Copyright (c) 2013 Ensighten
