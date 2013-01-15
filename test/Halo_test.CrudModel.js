@@ -22,7 +22,7 @@
 
 module('A CrudModel');
 
-test('can be created', function() {
+test('can be created', function () {
   expect(1);
 
   // Load CrudModel
@@ -40,7 +40,7 @@ test('can be created', function() {
   });
 });
 
-test('can be created with a memory mixin', function() {
+test('can be created with a memory mixin', function () {
   expect(2);
 
   // Load CrudModel

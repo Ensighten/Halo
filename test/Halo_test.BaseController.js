@@ -22,7 +22,7 @@
 
 module('A BaseController');
 
-test('can be created', function() {
+test('can be created', function () {
   expect(1);
 
   // Load BaseController
@@ -40,7 +40,7 @@ test('can be created', function() {
   });
 });
 
-test('can when started, calls `start`', function() {
+test('can when started, calls `start`', function () {
   expect(3);
 
   // Load BaseController

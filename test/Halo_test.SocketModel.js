@@ -22,7 +22,7 @@
 
 module('A SocketModel');
 
-test('can be created', function() {
+test('can be created', function () {
   expect(1);
 
   // Load SocketModel
@@ -39,7 +39,7 @@ test('can be created', function() {
   });
 });
 
-test('has this.socket', function() {
+test('has this.socket', function () {
   expect(1);
 
   // Load SocketModel
