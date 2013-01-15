@@ -29,7 +29,7 @@
   "devDependencies": {
     "grunt": "~0.3.17",
     "grunt-curl": "~0.1.1",
-    "grunt-contrib-requirejs": "~0.3.4"
+    "grunt-text-replace": "~0.2.10"
   },
   "keywords": [
     "mvc",

@@ -27,6 +27,19 @@ module.exports = function(grunt) {
       'src/public/js/Builder.js': 'https://raw.github.com/Ensighten/Builder/master/dist/Builder.require.jquery.js'
     },
 
+    // Require-ify src
+    replace: {
+      Sauron: {
+        src: 'src/public/js/Sauron.js',
+        dest: 'stage/public/js/Sauron.js',
+        replacements: [{
+          from: 'define(',
+          to: 'define("Sauron",'
+        }]
+      }
+    },
+
+
     // Concatenate and minify repository
     concat: {
       halo: {
@@ -51,31 +64,6 @@ module.exports = function(grunt) {
         src: '<config:concat.halo.src>',
         dest: 'dist/halo.min.js'
       }
-    },
-    requirejs: {
-      halo: {
-        options: {
-          optimize: 'none',
-          appDir: './src/',
-          baseUrl: './public/js/',
-          modules: [
-            // {name: 'src/public/require.js'},
-            {name: 'src/public/jquery.js'},
-            {name: 'src/public/socket.io.js'},
-            {name: 'src/public/Sauron.js'}
-
-          // // Then Sauron.require, Builder.require.jquery, and mvc
-          // 'src/public/js/Sauron.js', 'src/public/js/Builder.js', 'src/public/js/mvc.js',
-
-          // // Then controllers
-          // 'src/controllers/BaseController.js', 'src/controllers/HtmlController.js',
-
-          // // Then models
-          // 'src/models/CrudModel.js', 'src/models/SocketModel.js'
-          ]
-        }
-      }
-      // TODO: Min flavor
     },
 
     // Testing
@@ -135,7 +123,7 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-curl');
 
   // Load in requirejs bindings
-  grunt.loadNpmTasks('grunt-contrib-requirejs');
+  grunt.loadNpmTasks('grunt-text-replace');
 
   // Alias qunit as test
   grunt.registerTask('test', 'server test-only');
