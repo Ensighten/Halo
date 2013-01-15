@@ -5864,14 +5864,14 @@ var swfobject=function(){var D="undefined",r="object",S="Shockwave Flash",W="Sho
 );
 
 if (typeof define === "function" && define.amd) {
-  define([], function () { return io; });
+  define("io",[], function () { return io; });
 }
 })();
 /*! Sauron - v1.1.0 - 2013-01-07
 * https://github.com/Ensighten/Sauron
 * Copyright (c) 2013 Ensighten; Licensed MIT */
 
-define(function () {
+define("Sauron",function () {
 return (function () {
   var MiddleEarth = {},
       Sauron = {},
@@ -6376,7 +6376,7 @@ return (function () {
 * https://github.com/Ensighten/Builder
 * Copyright (c) 2013 Ensighten; Licensed MIT */
 
-define(['jquery'], function ($) {
+define("Builder",['jquery'], function ($) {
 
 // jQuery flavored settings for Builder
 var settings = {
@@ -6569,7 +6569,7 @@ Builder.addPlugin = addPlugin;
 return Builder;
 
 });
-define(function () {
+define("mvc",function () {
   return {
     'load': function (name, req, onLoad, config) {
       // Determine the type and localize paths
@@ -6607,7 +6607,7 @@ define(function () {
     }
   };
 });
-define(['Sauron'], function (Sauron) {
+define("../../controllers/BaseController",['Sauron'], function (Sauron) {
   function noop() {}
 
   /**
@@ -6642,7 +6642,7 @@ define(['Sauron'], function (Sauron) {
   // Return the BaseController template
   return BaseController;
 });
-define(['Sauron', 'jquery', 'mvc!c/BaseController'], function (Sauron, $, BaseController) {
+define("../../controllers/HtmlController",['Sauron', 'jquery', 'mvc!c/BaseController'], function (Sauron, $, BaseController) {
   function noop() {}
   function autoCallback(callback) {
     callback();
@@ -6765,7 +6765,7 @@ define(['Sauron', 'jquery', 'mvc!c/BaseController'], function (Sauron, $, BaseCo
   return HtmlController;
 });
 
-define(['Sauron'], function (Sauron) {
+define("../../models/CrudModel",['Sauron'], function (Sauron) {
   function noop() {}
   /**
    * Constructor for CRUD Model
@@ -6884,7 +6884,7 @@ define(['Sauron'], function (Sauron) {
   return CrudModel;
 });
 /*global io:true*/
-define(['Sauron', 'mvc!m/CrudModel', 'socket.io'], function (Sauron, CrudModel) {
+define("../../models/SocketModel",['Sauron', 'mvc!m/CrudModel', 'socket.io'], function (Sauron, CrudModel) {
   // Create a socket which proxies all requests
   var href = window.location.href,
       isSecure = href.slice(0, 5) === 'https',

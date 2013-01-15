@@ -1,21 +1,11 @@
 /*global module:true */
 module.exports = function(grunt) {
   var read = grunt.file.read,
-      port = require('./utils/gruntConfig').port;
+      port = require('./utils/gruntConfig').port,
+      rjsDefine = require('./utils/rjsDefine');
 
   // Register task for mapping out test files
   require('./utils/grunt-test-files')(grunt);
-
-  function rjsDefine(module) {
-    return {
-      src: 'src/public/js/' + module + '.js',
-      dest: 'stage/public/js/' + module + '.js',
-      replacements: [{
-        from: 'define(',
-        to: 'define("' + module + '",'
-      }]
-    };
-  }
 
   // Project configuration.
   grunt.initConfig({
@@ -40,6 +30,14 @@ module.exports = function(grunt) {
 
     // Require-ify src
     replace: {
+      'socket.io': {
+        src: 'src/public/js/socket.io.js',
+        dest: 'stage/public/js/socket.io.js',
+        replacements: [{
+          from: 'define(',
+          to: 'define("io",'
+        }]
+      },
       Sauron: rjsDefine('Sauron'),
       Builder: rjsDefine('Builder'),
       mvc: rjsDefine('mvc'),
@@ -54,7 +52,11 @@ module.exports = function(grunt) {
       halo: {
         src: [
           // Banner, jquery, and require first
-          '<banner:meta.banner>', 'src/public/jquery.js', 'src/public/js/require.js', 'src/public/js/socket.io.js',
+          '<banner:meta.banner>', 'src/public/jquery.js', 'src/public/js/require.js',
+
+          // Then socket.io
+          // Socket.io uses anonymous define
+          'stage/public/js/socket.io.js',
 
           // Then Sauron.require, Builder.require.jquery, and mvc
           'stage/public/js/Sauron.js', 'stage/public/js/Builder.js', 'stage/public/js/mvc.js',
@@ -146,5 +148,5 @@ module.exports = function(grunt) {
 
   // Set up up build task
   grunt.registerTask('build', 'build-only test');
-  grunt.registerTask('build-only', 'lint concat min');
+  grunt.registerTask('build-only', 'lint replace concat min');
 };
