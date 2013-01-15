@@ -2,21 +2,19 @@
 // Annoying low level test
   "A BaseController": {
     "can be created": true,
-    "that has been defined": {
-      "that is started": {
-        "has started": true,
-        "and that is stopped": {
-          "has stopped": true
-        }
-      }
+    "when started": {
+      "calls `start`": true
+    },
+    "when stopped": {
+      "calls `stop`": true
     }
   }
 }, {
 // Less-annoying low level test
   "An HtmlController": {
-    "that is started via Sauron": {
+    "when started": {
       "appends content to the container": true,
-      "and then stopped": {
+      "when stopped": {
         "removes content from the container": true
       }
     }
@@ -27,7 +25,8 @@
     "can be created with a memory mixin": true
   }
 }, {
-// TODO: Don't test SocketModel further due to intended deprecation
+// Don't test SocketModel further due to intended deprecation
+// TODO: Replacement will be XHR-polling + HTTP METHOD calls
   "A SocketModel": {
     "can be created": true,
     "has this.socket": true
