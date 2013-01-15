@@ -11,7 +11,7 @@
   <!-- Remove window.define since everything should be handled by dist. -->
   <script>
   var _define = window.define;
-  delete window.define;
+  window.define = function () {};
   </script>
   <!-- Load test. -->
   <script>
