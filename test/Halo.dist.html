@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Halo Test Suite</title>
+  <!-- Load local QUnit. -->
+  <link rel="stylesheet" href="libs/qunit/qunit.css" media="screen">
+  <script src="libs/qunit/qunit.js"></script>
+  <!-- Load dist file. -->
+  <script src="../dist/halo.js"></script>
+  <script>
+    // Configure requirejs to load from src/public.
+    require.config({
+      'baseUrl': '../src/public/js'
+    });
+  </script>
+  <!-- Remove window.define since everything should be handled by dist. -->
+  <script>
+  // TODO: This definitely will not work for socket.io =(
+  var _define = window.define;
+  delete window.define;
+  </script>
+  <!-- Load test. -->
+  <script>
+    (function () {
+      // Inspired by grunt's jquery-loader
+      // Grab the test number
+      var testArr = window.location.search.match(/[?&]test=([^&]*)(&|$)/) || [],
+          testPath = testArr[1] || '';
+
+      // Inject the test
+      // Forgive me father for I have sinned.
+      document.write('<scr' + 'ipt src="' + testPath + '"></scr' + 'ipt>');
+    }());
+  </script>
+</head>
+<body>
+  <h1 id="qunit-header">Halo Test Suite</h1>
+  <h2 id="qunit-banner"></h2>
+  <div id="qunit-testrunner-toolbar"></div>
+  <h2 id="qunit-userAgent"></h2>
+  <ol id="qunit-tests"></ol>
+  <div id="qunit-fixture">
+    <span>lame test markup</span>
+    <span>normal test markup</span>
+    <span>awesome test markup</span>
+  </div>
+</body>
+</html>
+
