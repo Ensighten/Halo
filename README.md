@@ -45,21 +45,34 @@ require(['Sauron', 'controllers/main'], function (Sauron) {
 </script>
 ```
 
-// TODO: We might want to simplify the example even more
+There are also a bunch of [framework-specific libraries](#framework-specific-libraries) to make your life easier. Continue reading [Documentation](#documentation) to find our more.
 
-// TODO: Note about it is strongly suggested that you use the `src` folder and configure the `baseUrl` of require.js to point to the public js folder.
+## Documentation
+Halo comes packaged with [require.js][requirejs] and [jquery][jquery] as well as a bunch of MVC nicities.
 
-// This is because we cannot predict the layout structure of your repository.
-// It could be all of your client-side files inside `public`, `public/js`, `static`. As a result, our pre-compiled files are optimized for **this** folder struture where the `baseUrl` is `src/public/js`. This means that all routes are looked up from the `src/public/js` folder.
+Each script is namespaced within require.js to its own filename (except for [require.js][requirejs]).
+
+### External libraries
+|           File          | Require.js namespace |                                           Description                                           |
+|-------------------------|----------------------|-------------------------------------------------------------------------------------------------|
+| [require.js][requirejs] | N/A                  | [AMD][amd] loader which exposes `require` and `define` globally.                                |
+| [jquery.js][jquery]     | `jquery`             | One does not simply describe [jQuery][jquery].                                                  |
+| [socket.io][socketio]   | `socket.io`          | Cross-browser WebSocket implementation.                                                         |
+| [Sauron][sauron]        | `Sauron`             | Mediator designed to provide a loose channel system for talking between models and controllers. |
+| [Builder][builder]      | `Builder`            | Build chain for client-side MVC views. You will <3 me later.                                  |
+
+[requirejs]: http://requirejs.org/
+[jquery]: http://jquery.com
+[amd]: https://github.com/amdjs/amdjs-api/wiki/AMD
+[socketio]: https://github.com/LearnBoost/socket.io-client
+[Sauron]: https://github.com/Ensighten/Sauron
+[Builder]: https://github.com/Ensighten/Builder
+
+### Framework-specific libraries
 
 // TODO: Notes on each and every .js within src
 
-// TODO: Use this within Documentation
-// Halo comes pre-packaged with require.js and jquery to get you up and running immediately
-
-
-## Documentation
-_(Coming soon)_
+// TODO: mvc has both dir and extensions to configure
 
 ## Examples
 _(Coming soon)_
