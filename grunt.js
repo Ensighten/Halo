@@ -6,6 +6,17 @@ module.exports = function(grunt) {
   // Register task for mapping out test files
   require('./utils/grunt-test-files')(grunt);
 
+  function rjsDefine(module) {
+    return {
+      src: 'src/public/js/' + module + '.js',
+      dest: 'stage/public/js/' + module + '.js',
+      replacements: [{
+        from: 'define(',
+        to: 'define("' + module + '",'
+      }]
+    };
+  }
+
   // Project configuration.
   grunt.initConfig({
     // Package meta data
@@ -29,16 +40,14 @@ module.exports = function(grunt) {
 
     // Require-ify src
     replace: {
-      Sauron: {
-        src: 'src/public/js/Sauron.js',
-        dest: 'stage/public/js/Sauron.js',
-        replacements: [{
-          from: 'define(',
-          to: 'define("Sauron",'
-        }]
-      }
+      Sauron: rjsDefine('Sauron'),
+      Builder: rjsDefine('Builder'),
+      mvc: rjsDefine('mvc'),
+      BaseController: rjsDefine('../../controllers/BaseController'),
+      HtmlController: rjsDefine('../../controllers/HtmlController'),
+      CrudModel: rjsDefine('../../models/CrudModel'),
+      SocketModel: rjsDefine('../../models/SocketModel')
     },
-
 
     // Concatenate and minify repository
     concat: {
@@ -48,13 +57,13 @@ module.exports = function(grunt) {
           '<banner:meta.banner>', 'src/public/jquery.js', 'src/public/js/require.js', 'src/public/js/socket.io.js',
 
           // Then Sauron.require, Builder.require.jquery, and mvc
-          'src/public/js/Sauron.js', 'src/public/js/Builder.js', 'src/public/js/mvc.js',
+          'stage/public/js/Sauron.js', 'stage/public/js/Builder.js', 'stage/public/js/mvc.js',
 
           // Then controllers
-          'src/controllers/BaseController.js', 'src/controllers/HtmlController.js',
+          'stage/controllers/BaseController.js', 'stage/controllers/HtmlController.js',
 
           // Then models
-          'src/models/CrudModel.js', 'src/models/SocketModel.js'
+          'stage/models/CrudModel.js', 'stage/models/SocketModel.js'
         ],
         dest: 'dist/halo.js'
       }
