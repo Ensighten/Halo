@@ -20,57 +20,50 @@
     raises(block, [expected], [message])
 */
 
-module('A CrudModel');
+module('A SocketModel');
 
 test('can be created', function() {
   expect(1);
 
-  // Load CrudModel
+  // Load SocketModel
   stop();
-  require(['mvc!m/CrudModel'], function (CrudModel) {
+  require(['mvc!m/SocketModel'], function (SocketModel) {
     start();
 
     // Create the model
-    var model = new CrudModel({
-          'name': 'crudModel#create',
-          'create': function () {},
+    var model = new SocketModel({
+          'name': 'socketModel#create',
           'retrieve': function () {}
         });
     ok(model);
   });
 });
 
-test('can be created with a memory mixin', function() {
-  expect(2);
+test('has this.socket', function() {
+  expect(1);
 
-  // Load CrudModel
+  // Load SocketModel
   stop();
-  require(['Sauron', 'mvc!m/CrudModel'], function (Sauron, CrudModel) {
+  require(['Sauron', 'mvc!m/SocketModel'], function (Sauron, SocketModel) {
     start();
 
     // Create the model
-    var name = 'crudModel#mixin',
-        model = new CrudModel({
+    var name = 'socketModel#socket',
+        model = new SocketModel({
           'name': name,
-          'mixin': 'memory',
-          'create': function (data, cb) {
-            this.memory.set(data.id, data);
-            if (cb) { cb(null); }
-          },
-          'retrieve': function (data, cb) {
-            cb(null, this.memory.get(data.id));
+          'retrieve': function (cb) {
+            var that = this;
+            cb(that);
           }
         });
 
-    // Get and set some data
-    Sauron.model(name).create({'id': 'hello', 'val': 'world'});
+    // Grab `this` from the model
     stop();
-    Sauron.model(name).retrieve({'id': 'hello'}, function (err, obj) {
+    Sauron.model(name).retrieve(function (that) {
       start();
 
-      // Assert the returned data
-      strictEqual(obj.id, 'hello');
-      strictEqual(obj.val, 'world');
+      // Assert that.socket exists
+      ok(that.socket);
     });
   });
 });

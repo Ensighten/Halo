@@ -42,6 +42,7 @@ module.exports = function(grunt) {
     curl: {
       'src/public/js/jquery.js': 'http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.js',
       'src/public/js/require.js': 'https://raw.github.com/jrburke/requirejs/master/require.js',
+      'src/public/js/socket.io.js': 'https://raw.github.com/LearnBoost/socket.io-client/master/dist/socket.io.js',
       'src/public/js/Sauron.js': 'https://raw.github.com/Ensighten/Sauron/master/dist/Sauron.require.js',
       'src/public/js/Builder.js': 'https://raw.github.com/Ensighten/Builder/master/dist/Builder.require.jquery.js'
     },
@@ -51,7 +52,7 @@ module.exports = function(grunt) {
       halo: {
         src: [
           // Banner, jquery, and require first
-          '<banner:meta.banner>', 'src/public/jquery.js', 'src/public/js/require.js',
+          '<banner:meta.banner>', 'src/public/jquery.js', 'src/public/js/require.js', 'src/public/js/socket.io.js',
 
           // Then Sauron.require, Builder.require.jquery, and mvc
           'src/public/js/Sauron.js', 'src/public/js/Builder.js', 'src/public/js/mvc.js',

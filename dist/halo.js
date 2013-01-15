@@ -3013,7 +3013,7 @@ define(['Sauron'], function (Sauron) {
   return CrudModel;
 });
 /*global io:true*/
-define(['Sauron', 'mvc!m/CrudModel', 'io'], function (Sauron, CrudModel) {
+define(['Sauron', 'mvc!m/CrudModel', 'socket.io'], function (Sauron, CrudModel) {
   // Create a socket which proxies all requests
   var href = window.location.href,
       isSecure = href.slice(0, 5) === 'https',
