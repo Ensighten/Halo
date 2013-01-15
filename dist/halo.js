@@ -1,4 +1,4 @@
-/*! Halo - v1.0.0 - 2013-01-14
+/*! Halo - v1.0.0 - 2013-01-15
 * https://github.com/Ensighten/Halo
 * Copyright (c) 2013 Ensighten; Licensed MIT */
 

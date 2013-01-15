@@ -96,7 +96,7 @@ module.exports = function(grunt) {
     // Watch files
     watch: {
       files: ['<config:lint.files>', '<config:qunit.files>'],
-      tasks: 'default'
+      tasks: 'build-only test-only'
     },
 
     // Test options
@@ -129,7 +129,8 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-curl');
 
   // Alias qunit as test
-  grunt.registerTask('test', 'server qunit');
+  grunt.registerTask('test', 'server test-only');
+  grunt.registerTask('test-only', 'qunit');
 
   // Alias update as curl
   grunt.registerTask('update', 'curl');
@@ -138,5 +139,6 @@ module.exports = function(grunt) {
   grunt.registerTask('default', 'build watch');
 
   // Set up up build task
-  grunt.registerTask('build', 'lint concat min test');
+  grunt.registerTask('build', 'build-only test');
+  grunt.registerTask('build-only', 'lint concat min');
 };
