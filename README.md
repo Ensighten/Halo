@@ -208,14 +208,6 @@ define(['SocketModel'], function (SocketModel) {
 });
 ```
 
-### TodoMVC
-_(Coming soon)_
-
-### Large scale
-_(Coming soon)_
-
-// TODO: Demonstrate full stack of Builder, mvc, CrudModel, and HtmlController
-
 ## Contributing
 In lieu of a formal styleguide, take care to maintain the existing coding style. Add unit tests for any new or changed functionality. Lint and test your code using [grunt](http://gruntjs.com/).
 
