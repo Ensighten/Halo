@@ -3,7 +3,7 @@ Controllers are where the business \[logic\] happens. They ask models for data, 
 
 There are two templates for controllers you can begin with, [BaseController](#basecontroller) and [HtmlController](#htmlcontroller), or you can write your own.
 
-At the heart of the system, controllers are event emitters listening to `Sauron.controller(name).on('start', startFn);` and similarly for `stop`.
+At the heart of the system, controllers are event emitters listening to `Sauron.controller(name).on().start(startFn);` and similarly for `stop`.
 
 ## BaseController
 The `BaseController` function expects the following input
@@ -18,9 +18,9 @@ BaseController(params);
  */
 ```
 
-`BaseController` takes `params.start` and attaches it to `Sauron.controller(name).on('start', params.start);`. Additionally, `params.start` is invoked on `params` so `this` will refer to `params` while inside of `params.start`.
+`BaseController` takes `params.start` and attaches it to `Sauron.controller(name).on().start(params.start);`. Additionally, `params.start` is invoked on `params` so `this` will refer to `params` while inside of `params.start`.
 
-Similarly, the same properties take effect for `stop.
+Similarly, the same properties take effect for `stop`.
 
 ### Example
 ```js
