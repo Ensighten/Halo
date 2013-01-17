@@ -148,5 +148,7 @@ Fortunately, some plugins ([timepicker included][timepickerInit]) have a safety 
 
 ----------------------
 
+Return to [README][readme]
+
 [timepicker]: http://jdewit.github.com/bootstrap-timepicker/
 [timepickerInit]: https://github.com/jdewit/bootstrap-timepicker/blob/796688ba405916186aeae4326165b219f4c6659d/js/bootstrap-timepicker.js#L780-L782
