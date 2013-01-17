@@ -128,7 +128,9 @@ Detailed explanations of `BaseController`, `HtmlController`, and their behaviors
 
 ### Views
 We have tried to stay as true to the thought
->    a view is markup and interactive logic
+
+>    A view is markup and interactive logic
+
 as much as possible.
 
 As a result, we built tools like [Builder][Builder] and [jqueryp][jqueryp] to make all of your interactive set up a breeze.
