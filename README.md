@@ -139,6 +139,77 @@ Further documentation can be can be found in [docs/views.md][docViews]
 [jqueryp]: https://github.com/Ensighten/jqueryp
 
 ## Examples
+### Full stack
+```js
+// index.html
+<script>
+  // Configure everything and kick-off the index controller
+  require(['config'], function () {
+    require(['Sauron', 'mvc!c/index'], function () {
+      Sauron.controller('index').start(document.body, function () {
+        // document.body will either display an error message about failing to load user
+        // or it will display the user's name and email
+      });
+    });
+  })
+</script>
+
+// config.js
+// Load in Builder, jade, and all jQuery plugins
+define(['Builder', 'jade', 'jqueryp!bootstrap!timpicker'], function (Builder, jade, $) {
+  // Set jade as the template engine
+  Builder.set('template engine', jade.render);
+
+  // Add in all jQuery plugins (Builder.jquery specific)
+  Builder.addPlugin('tooltip');
+  Builder.addPlugin({'module': 'timepicker', 'selector': '.bootstrap-timepicker'});
+
+  // Return an empty config
+  return {};
+});
+
+// views/index.jade
+.container
+  if (err)
+    p An error occurred. =(
+  else
+    h1 User info
+    .row
+      .span6 Name: #{user.name}
+      .span6 Email: #{user.email}
+
+// controllers/index.js
+define(['Sauron', 'Builder', 'HtmlController', 'mvc!v/index.jade', 'mvc!m/user'], function (Sauron, Builder, HtmlController, template) {
+  // Create and return our HtmlController
+  return HtmlController({
+    'name': 'index',
+    'start': function (cb) {
+      // Grab user info
+      Sauron.model('user').retrieve({'id': 1}, function (err, user) {
+        // Create data to render with
+        var data = {'err': err, 'user': user};
+
+        // Render the content and callback
+        var $html = Builder(template, data);
+        cb($html);
+      });
+  });
+});
+
+// models/user.js
+define(['SocketModel'], function (SocketModel) {
+  // Forward all socket.io calls to server
+  return SocketModel({
+    'name': 'user',
+    'mixin': 'autoCRUD'
+  });
+});
+```
+
+### TodoMVC
+_(Coming soon)_
+
+### Large scale
 _(Coming soon)_
 
 // TODO: Demonstrate full stack of Builder, mvc, CrudModel, and HtmlController
@@ -146,7 +217,7 @@ _(Coming soon)_
 ## Contributing
 In lieu of a formal styleguide, take care to maintain the existing coding style. Add unit tests for any new or changed functionality. Lint and test your code using [grunt](http://gruntjs.com/).
 
-_Also, please don't edit files in the "dist" or "stage" subdirectories as they are generated via grunt. You'll find source code in the "lib" subdirectory!_
+_Also, please don't edit files in the "dist" or "stage" subdirectories as they are generated via grunt. You'll find source code in the "src" subdirectory!_
 
 ### PhantomJS
 While grunt can run the included unit tests via [PhantomJS](http://phantomjs.org/), this shouldn't be considered a substitute for the real thing. Please be sure to test the `test/*.html` unit test file(s) in _actual_ browsers.
