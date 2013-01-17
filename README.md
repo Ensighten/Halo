@@ -105,6 +105,7 @@ URLs are constructed via `directory + '/' + module + extension`.
 [requirejs-config]: http://requirejs.org/docs/api.html#config
 
 #### CrudModel
+Basic model which binds `create`, `retrieve`, `update`, and `delete` properties to
 
 #### SocketModel
 
