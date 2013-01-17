@@ -3,10 +3,8 @@
 Client-side MVC framework based on Addy Osmani's Aura.
 
 ## Getting Started
-Download the [production version][min] ([vanilla][min] or [requirejs][min_require]) or the [development version][max] ([vanilla][max] or [requirejs][max_require]).
+Download the [production version][min] or the [development version][max].
 
-[min_require]: https://raw.github.com/Ensighten/Halo/master/dist/Halo.require.min.js
-[max_require]: https://raw.github.com/Ensighten/Halo/master/dist/Halo.require.js
 [min]: https://raw.github.com/Ensighten/Halo/master/dist/Halo.min.js
 [max]: https://raw.github.com/Ensighten/Halo/master/dist/Halo.js
 
