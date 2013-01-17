@@ -60,7 +60,9 @@ params.start = function (/* arg1, arg2, ..., */ cb) {
   // });
 };
 
-// Sauron calls to HtmlControllers require an HTMLElement, DocumentFragment, or a jQuery coll'n as their first parameter.
+// Sauron calls to HtmlControllers require an HTMLElement, DocumentFragment,
+// or a jQuery collection as their first parameter.
+
 // You can provide a callback as the last parameter which runs once the controller has been started.
 Sauron.controller('main').start($body, function () {
   // Called when start is complete and content done being appended
