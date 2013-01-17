@@ -87,7 +87,31 @@ Sauron.controller('main').stop(function () {
 The reason for the stripping of the `$container` and `$html` from the callback is to enforce modularization of controllers at the framework level. It prevents any sneaky tricks/introspection between children and parents.
 
 ### Example
-// TODO: Example
+```js
+HtmlController({
+  'name': 'myHtmlController',
+  'start': function (data, cb) {
+    var html = '<div>' + data.val + '</div>';
+    cb(html);
+  },
+  'stop': function (data, cb) {
+    console.log(data);
+    cb();
+  }
+});
+
+// Start the controller on body
+Sauron.start('myHtmlController').controller(document.body, {'val': 'Hello World!'}, function () {
+  document.body.innerHTML; // <div>Hello World!</div>
+  S
+
+  // Stop the controller
+  Sauron.stop('myHtmlController').stop('Goodbye.', function () {
+    // console contains 'Goodbye.'
+    document.body.innerHTML; // empty string
+  });
+});
+```
 
 Return to [README][readme]
 
