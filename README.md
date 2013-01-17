@@ -179,7 +179,9 @@ define(['Builder', 'jade', 'jqueryp!bootstrap!timpicker'], function (Builder, ja
       .span6 Email: #{user.email}
 
 // controllers/index.js
-define(['Sauron', 'Builder', 'HtmlController', 'mvc!v/index.jade', 'mvc!m/user'], function (Sauron, Builder, HtmlController, template) {
+define(['Sauron', 'Builder', 'HtmlController', 'mvc!v/index.jade', 'mvc!m/user'],
+  function (Sauron, Builder, HtmlController, template) {
+
   // Create and return our HtmlController
   return HtmlController({
     'name': 'index',
