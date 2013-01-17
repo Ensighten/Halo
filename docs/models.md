@@ -121,6 +121,31 @@ The mixin string for this is `'autoCRUD'`.
 There are additional mixins available within [Halo.extras][haloExtras]. Most of these were custom to our implementation and as a result, left out of the framework.
 
 ### Example
-// TODO: Complete
+```js
+SocketModel({
+  'name': 'user',
+  'mixin': ['autoCRUD'],
+  'create': function (data, cb) {
+    console.log('Sending request to API');
+    this.socket.create(data, function (err, res) {
+      console.log('Got response back');
+      cb.apply(this, arguments);
+    });
+  }
+});
 
-// TODO: Review all TODO's (in repo)
+// Create a user
+Sauron.model('user').create({'name': 'Joe'}, function (err, res) {
+  // console shows 'Sending request to API' and 'Got response back'
+  // Handle error and user with data from server
+});
+
+// Retrieve a user from the server (auto-forwarded by autoCRUD)
+Sauron.model('user').retrieve({'id': 1}, function (err, user) {
+  // Handle error and user with data from server
+});
+```
+
+Return to [README][readme]
+
+[readme]: https://github.com/Ensighten/Halo/blob/master/README.md
