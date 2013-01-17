@@ -25,18 +25,70 @@ Similarly, the same properties take effect for `stop.
 ### Example
 ```js
 BaseController({
-  'name': 'sampleController',
+  'name': 'myBaseController',
   'start': function () {
-    console.log('Starting sampleController');
+    console.log('Starting myBaseController');
   },
   'stop': function () {
-    console.log('Stopping sampleController');
+    console.log('myBaseController stopped');
   }
 });
 
-// console.log's 'Starting sampleController'
-Sauron.start().controller('sampleController', {});
+// console.log's 'Starting myBaseController'
+Sauron.start().controller('myBaseController', {});
 
-// console.log's 'Stopping sampleController'
-Sauron.stop().controller('sampleController', {});
+// console.log's 'myBaseController stopped'
+Sauron.stop().controller('myBaseController', {});
 ```
+
+## HtmlController
+`HtmlController` adds a layer on top of `BaseController`. The API remains the same but we require normalization from `params` and `Sauron` calls.
+
+```js
+// The final parameter of params will **always** be a function.
+params.start = function (/* arg1, arg2, ..., */ cb) {
+  // The callback expects either an HTML string, HTMLElement, DocumentFragment, or jQuery collection.
+  cb('<div>some content</div>');
+
+  // The called back content is wrapped in jQuery (normalizing everything into a jQuery collection) and appended to the first parameter of the Sauron call.
+bee
+  // Any additional parameters to the callback are passed to the original callback (if provided).
+  // Sauron.controller('main').start($main, function (data) {
+  //  // Recieves any parameters after '<div>some content</div>'
+  // });
+};
+
+// Sauron calls require an HTMLElement, DocumentFragment, or a jQuery collection as their first parameter.
+// You can provide a function as the last parameter to receive a callback once the controller has been started.
+Sauron.controller('main').start($body, function () {
+  // Called when start is complete and content done being appended
+});
+
+// HtmlController strips off the first parameter and uses it as the $container for the called back content to be appended to.
+// As a result, params.start only receives ('b', 'c', 'd', cb) as parameters.
+Sauron.controller('home').start($a, 'b', 'c', 'd', cb);
+```
+
+```js
+// The final parameter of params will **always** be a function.
+params.stop = function (/* arg1, arg2, ..., */ cb) {
+  // Callback when done
+  cb();
+};
+
+// You **must** call this if you manually specify a params.stop.
+
+// When params.stop is called (even if you don't specify it), $container will be emptied and the callback (if provided) will be run.
+Sauron.controller('main').stop(function () {
+  // Called when stop is complete and content is removed
+});
+```
+
+The reason for the stripping of the `$container` and `$html` from the callback is to enforce modularization of controllers at the framework level. It prevents any sneaky tricks/introspection between children and parents.
+
+### Example
+// TODO: Example
+
+Return to [README][readme]
+
+[readme]: https://github.com/Ensighten/Halo/blob/master/README.md
