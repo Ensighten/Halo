@@ -50,21 +50,24 @@ params.start = function (/* arg1, arg2, ..., */ cb) {
   // The callback expects either an HTML string, HTMLElement, DocumentFragment, or jQuery collection.
   cb('<div>some content</div>');
 
-  // The called back content is wrapped in jQuery (normalizing everything into a jQuery collection) and appended to the first parameter of the Sauron call.
-bee
+  // The called back content is wrapped in jQuery (normalizing everything into a jQuery collection)
+  // and appended to the first parameter of the Sauron call.
+
   // Any additional parameters to the callback are passed to the original callback (if provided).
+
   // Sauron.controller('main').start($main, function (data) {
   //  // Recieves any parameters after '<div>some content</div>'
   // });
 };
 
-// Sauron calls require an HTMLElement, DocumentFragment, or a jQuery collection as their first parameter.
-// You can provide a function as the last parameter to receive a callback once the controller has been started.
+// Sauron calls to HtmlControllers require an HTMLElement, DocumentFragment, or a jQuery coll'n as their first parameter.
+// You can provide a callback as the last parameter which runs once the controller has been started.
 Sauron.controller('main').start($body, function () {
   // Called when start is complete and content done being appended
 });
 
-// HtmlController strips off the first parameter and uses it as the $container for the called back content to be appended to.
+// HtmlController strips off the first parameter
+// and uses it as the $container for the called back content to be appended to.
 // As a result, params.start only receives ('b', 'c', 'd', cb) as parameters.
 Sauron.controller('home').start($a, 'b', 'c', 'd', cb);
 ```
@@ -78,7 +81,8 @@ params.stop = function (/* arg1, arg2, ..., */ cb) {
 
 // You **must** call this if you manually specify a params.stop.
 
-// When params.stop is called (even if you don't specify it), $container will be emptied and the callback (if provided) will be run.
+// When params.stop is called (even if you don't specify it), $container will be emptied
+// and the callback (if provided) will be run.
 Sauron.controller('main').stop(function () {
   // Called when stop is complete and content is removed
 });
