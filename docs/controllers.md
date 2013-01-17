@@ -119,6 +119,8 @@ Sauron.start('myHtmlController').controller(document.body, {'val': 'Hello World!
 });
 ```
 
+-------------------------
+
 Return to [README][readme]
 
 [readme]: https://github.com/Ensighten/Halo/blob/master/README.md

@@ -146,6 +146,8 @@ Sauron.model('user').retrieve({'id': 1}, function (err, user) {
 });
 ```
 
+-------------------------
+
 Return to [README][readme]
 
 [readme]: https://github.com/Ensighten/Halo/blob/master/README.md
