@@ -116,6 +116,15 @@ More information on `CrudModel`, `SocketModel`, and their mixins/methods can be 
 [docViews]: https://github.com/Ensighten/Halo/tree/master/docs/views.md
 
 ### Controllers
+There are two controller templates available: `BaseController` and `HtmlController`.
+
+`BaseController` does not provide any mixins by default and binds `start` and `stop` to Sauron listeners.
+
+`HtmlController` wraps `BaseController` and proxies `start` and `stop` to append and remove generated content respectively.
+
+Detailed explanations of `BaseController`, `HtmlController`, and their behaviors can be found in [docs/controllers.md][docControllers].
+
+[docControllers]: https://github.com/Ensighten/Halo/tree/master/docs/controllers.md
 
 ### Views
 We have tried to stay as true to the thought
@@ -129,21 +138,10 @@ Further documentation can be can be found in [docs/views.md][docViews]
 [docViews]: https://github.com/Ensighten/Halo/tree/master/docs/views.md
 [jqueryp]: https://github.com/Ensighten/jqueryp
 
-#### CrudModel
-Basic model which binds `create`, `retrieve`, `update`, and `delete` properties to
-
-#### SocketModel
-
-#### BaseController
-
-#### HtmlController
-
 ## Examples
 _(Coming soon)_
 
-// TODO: Demonstrate full stack of Builder, mvc, CrudMode, and HtmlController
-
-// TODO: Also, do TodoMVC
+// TODO: Demonstrate full stack of Builder, mvc, CrudModel, and HtmlController
 
 ## Contributing
 In lieu of a formal styleguide, take care to maintain the existing coding style. Add unit tests for any new or changed functionality. Lint and test your code using [grunt](http://gruntjs.com/).
