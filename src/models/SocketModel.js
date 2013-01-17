@@ -9,7 +9,7 @@ define(['Sauron', 'mvc!m/CrudModel', 'socket.io'], function (Sauron, CrudModel, 
   /**
    * Wrapped constructor for CrudModel with socket.io. The socket is accessible via this.socket.
    * @param {Object} params Param object
-   * @param {Function} [params.channel] Channel to listen to in socket.io
+   * @param {Function} [params.channel] Channel to listen to in socket.io. By default, this is params.name
    * @param {Function} [params.createEvent] Action to take for a create event from the server
    * @param {Function} [params.retrieveEvent] Action to take for a retrieve event from the server
    * @param {Function} [params.updateEvent] Action to take for an update event from the server

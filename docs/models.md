@@ -79,4 +79,48 @@ Sauron.model(name).create({'id': 'hello', 'val': 'world'}, function () {
 ```
 
 ## SocketModel
-// TODO: Complete this
+`SocketModel` has the same API as `CrudModel` however with additional listeners.
+```js
+SocketModel(params);
+/**
+ * Wrapped constructor for CrudModel with socket.io. The socket is accessible via this.socket.
+ * @see CrudModel
+ * @param {Function} [params.channel] Channel to listen to in socket.io. By default, this is params.name
+ * @param {Function} [params.createEvent] Action to take for a create event from the server
+ * @param {Function} [params.retrieveEvent] Action to take for a retrieve event from the server
+ * @param {Function} [params.updateEvent] Action to take for an update event from the server
+ * @param {Function} [params.deleteEvent] Action to take for an delete event from the server
+ */
+```
+
+In addition to the new `params` properties, `params.socket/this.socket` is always bound to params upon `SocketModel` instantiation.
+
+`params.socket` is a [socket.io][socketio] socket initialized on the specified channel (`params.channel`). Additionally, it has helper methods for talking to your server.
+
+```js
+// Socket.request is an alias for Socket.emit
+// However, it introduces a layer where you can introduce global validation/sanitization
+// of your requests (e.g. checking for common errors like session timeout).
+Socket.request(...);
+
+// Prepends 'create', 'retrieve', 'update', or 'delete' respectively to the list of arguments
+// sent to a Socket.request call
+Socket.create(...);    // Same as Socket.request('create', ...);
+Socket.retrieve(...);  // Same as Socket.request('retrieve', ...);
+Socket.update(...);    // Same as Socket.request('update', ...);
+Socket['delete'](...); // Same as Socket.request('delete', ...);
+```
+
+### Mixins
+#### autoCRUD
+`autoCRUD` automatically forwards requests made to `Sauron.model(name).create(...)` to `this.Socket.create` if `params.create` does not exist (and to all other `CRUD` flavors respectively).
+
+The mixin string for this is `'autoCRUD'`.
+
+#### Implementation specific
+There are additional mixins available within [Halo.extras][haloExtras]. Most of these were custom to our implementation and as a result, left out of the framework.
+
+### Example
+// TODO: Complete
+
+// TODO: Review all TODO's (in repo)
