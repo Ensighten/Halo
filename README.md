@@ -67,7 +67,6 @@ Each script is namespaced within require.js to its own filename (except for [req
 [socketio]: https://github.com/LearnBoost/socket.io-client
 [Sauron]: https://github.com/Ensighten/Sauron
 [Builder]: https://github.com/Ensighten/Builder
-[jqueryp]: https://github.com/Ensighten/Builder
 
 ### Framework-specific libraries
 
@@ -103,6 +102,32 @@ URLs are constructed via `directory + '/' + module + extension`.
 
 [requirejs-plugin]: http://requirejs.org/docs/plugins.html
 [requirejs-config]: http://requirejs.org/docs/api.html#config
+
+### Models
+Halo comes with two model templates for usage: `CrudModel` and `SocketModel`.
+
+`CrudModel` provides the `memory` mixin and Sauron hooks for `create`, `retrieve`, `update`, and `delete`.
+
+`SocketModel` extends on top `CrudModel` by adding a [socket.io][socketio] to all methods, `this.socket`,
+as well as Sauron hooks for `createEvent`, `updateEvent`, and `deleteEvent` which are intended to handle server push events.
+
+More information on `CrudModel`, `SocketModel`, and their mixins/methods can be found in [docs/models.md][docModels].
+
+[docViews]: https://github.com/Ensighten/Halo/tree/master/docs/views.md
+
+### Controllers
+
+### Views
+We have tried to stay as true to the thought
+>    a view is markup and interactive logic
+as much as possible.
+
+As a result, we built tools like [Builder][Builder] and [jqueryp][jqueryp] to make all of your interactive set up a breeze.
+
+Further documentation can be can be found in [docs/views.md][docViews]
+
+[docViews]: https://github.com/Ensighten/Halo/tree/master/docs/views.md
+[jqueryp]: https://github.com/Ensighten/jqueryp
 
 #### CrudModel
 Basic model which binds `create`, `retrieve`, `update`, and `delete` properties to
