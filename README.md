@@ -116,7 +116,7 @@ as well as Sauron hooks for `createEvent`, `updateEvent`, and `deleteEvent` whic
 
 More information on `CrudModel`, `SocketModel`, and their mixins/methods can be found in [docs/models.md][docModels].
 
-[docViews]: https://github.com/Ensighten/Halo/tree/master/docs/views.md
+[docModels]: https://github.com/Ensighten/Halo/tree/master/docs/models.md
 
 ### Controllers
 There are two controller templates available: `BaseController` and `HtmlController`.
