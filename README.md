@@ -1,6 +1,11 @@
 # Halo
 
-Client-side MVC framework based on Addy Osmani's Aura.
+Client-side MVC framework based on [Addy Osmani's talks][auraTalks] about [Aura][aura].
+
+Halo was conceived while [Aura][aura] was still in private development, causing some concepts to be shared and others to be significantly different.
+
+[auraTalks]: http://addyosmani.com/futureproofjs/
+[aura]: https://github.com/aurajs/aura
 
 ## Getting Started
 Download the [production version][min] or the [development version][max].
