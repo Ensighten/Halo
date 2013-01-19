@@ -1,4 +1,4 @@
-/*! halo-mvc - v1.0.0 - 2013-01-19
+/*! halo-mvc - v1.1.0 - 2013-01-19
 * https://github.com/Ensighten/Halo
 * Copyright (c) 2013 Ensighten; Licensed MIT */
 
