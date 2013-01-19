@@ -227,7 +227,7 @@ You have a couple of options for the `src` directory routing
 
 - Convert all `BaseController`, `HtmlController`, `CrudModel`, and `SocketModel` calls to `mvc!c/BaseController`, `mvc!c/HtmlController`, `mvc!m/CrudModel`, and `mvc!m/SocketModel` respectively.
     - This will cause all look ups to go through the `mvc` plugin which knows the paths to your `controllers` and `models` folders.
-- Manually adjust paths within your [require.js config][requirejs-config] for `BaseController`, `HtmlController`, `CrudModel`, and `SocketModel` to the new paths.
+- Manually adjust paths within your [require.js config][requirejs-config] for `BaseController`, `HtmlController`, `CrudModel`, and `SocketModel` to their new locations.
 
 ### PhantomJS
 While grunt can run the included unit tests via [PhantomJS](http://phantomjs.org/), this shouldn't be considered a substitute for the real thing. Please be sure to test the `test/*.html` unit test file(s) in _actual_ browsers.
