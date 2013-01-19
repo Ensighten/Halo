@@ -7,8 +7,6 @@ Halo was conceived while [Aura][aura] was still in private development, causing 
 [auraTalks]: http://addyosmani.com/futureproofjs/
 [aura]: https://github.com/aurajs/aura
 
-// TODO: Add documentation on how if we use `src`, we must adjust the routes for HtmlController and such.
-
 ## Getting Started
 Download the [production version][min] or the [development version][max].
 
@@ -219,6 +217,17 @@ define(['SocketModel'], function (SocketModel) {
 In lieu of a formal styleguide, take care to maintain the existing coding style. Add unit tests for any new or changed functionality. Lint and test your code using [grunt](http://gruntjs.com/).
 
 _Also, please don't edit files in the "dist" or "stage" subdirectories as they are generated via grunt. You'll find source code in the "src" subdirectory!_
+
+## Using src
+If you plan to use the `src` directory, you will need to adjust your require.js config accordingly.
+
+We use multiple directories to separate the purpose of files. However, upon compilation, we flatten it to a single directory which allows for `require(['HtmlController'])` without any additional routing.
+
+You have a couple of options for the `src` directory routing
+
+- Convert all `BaseController`, `HtmlController`, `CrudModel`, and `SocketModel` calls to `mvc!c/BaseController`, `mvc!c/HtmlController`, `mvc!m/CrudModel`, and `mvc!m/SocketModel` respectively.
+    - This will cause all look ups to go through the `mvc` plugin which knows the paths to your `controllers` and `models` folders.
+- Manually adjust paths within your [require.js config][requirejs-config] for `BaseController`, `HtmlController`, `CrudModel`, and `SocketModel` to the new paths.
 
 ### PhantomJS
 While grunt can run the included unit tests via [PhantomJS](http://phantomjs.org/), this shouldn't be considered a substitute for the real thing. Please be sure to test the `test/*.html` unit test file(s) in _actual_ browsers.
