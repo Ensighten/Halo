@@ -1,6 +1,11 @@
 # Halo
 
-Client-side MVC framework based on Addy Osmani's Aura.
+Client-side MVC framework based on [Addy Osmani's talks][auraTalks] about [Aura][aura].
+
+Halo was conceived while [Aura][aura] was still in private development, causing some concepts to be shared and others to be significantly different.
+
+[auraTalks]: http://addyosmani.com/futureproofjs/
+[aura]: https://github.com/aurajs/aura
 
 // TODO: Add documentation on how if we use `src`, we must adjust the routes for HtmlController and such.
 
@@ -113,7 +118,7 @@ as well as Sauron hooks for `createEvent`, `updateEvent`, and `deleteEvent` whic
 
 More information on `CrudModel`, `SocketModel`, and their mixins/methods can be found in [docs/models.md][docModels].
 
-[docViews]: https://github.com/Ensighten/Halo/tree/master/docs/views.md
+[docModels]: https://github.com/Ensighten/Halo/tree/master/docs/models.md
 
 ### Controllers
 There are two controller templates available: `BaseController` and `HtmlController`.
