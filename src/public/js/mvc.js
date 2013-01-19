@@ -14,16 +14,16 @@ define(function () {
       // Load models and controllers as JS and views via the text plugin
       switch (type) {
         case 'm':
-          dir = paths._modelDir || '../../models';
+          dir = paths._modelDir || 'models';
           ext = paths._modelExt || '.js';
           break;
         case 'v':
           prefix = 'text!';
-          dir = paths._viewDir || '../../views';
+          dir = paths._viewDir || 'views';
           ext = paths._viewExt || '.html';
           break;
         case 'c':
-          dir = paths._controllerDir || '../../controllers';
+          dir = paths._controllerDir || 'controllers';
           ext = paths._controllerExt || '.js';
           break;
       }

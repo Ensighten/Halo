@@ -2,6 +2,8 @@
 
 Client-side MVC framework based on Addy Osmani's Aura.
 
+// TODO: Add documentation on how if we use `src`, we must adjust the routes for HtmlController and such.
+
 ## Getting Started
 Download the [production version][min] or the [development version][max].
 
@@ -14,7 +16,7 @@ In your web page:
 <script src="dist/Halo.js"></script>
 <script>
 // Define a controller. Each controller has its start/stop methods proxied via Sauron, a global mediator.
-define('controllers/main', ['jquery', 'mvc!c/HtmlController'], function ($, HtmlController) {
+define('controllers/main', ['jquery', 'HtmlController'], function ($, HtmlController) {
   var params = {
     // Name of the controller -- this acts as the channel for Sauron
     'name': 'main',
