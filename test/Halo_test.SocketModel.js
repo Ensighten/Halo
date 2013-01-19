@@ -27,7 +27,7 @@ test('can be created', function () {
 
   // Load SocketModel
   stop();
-  require(['mvc!m/SocketModel'], function (SocketModel) {
+  require(['SocketModel'], function (SocketModel) {
     start();
 
     // Create the model
@@ -44,7 +44,7 @@ test('has this.socket', function () {
 
   // Load SocketModel
   stop();
-  require(['Sauron', 'mvc!m/SocketModel'], function (Sauron, SocketModel) {
+  require(['Sauron', 'SocketModel'], function (Sauron, SocketModel) {
     start();
 
     // Create the model

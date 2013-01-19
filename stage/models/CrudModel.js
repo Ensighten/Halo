@@ -1,4 +1,4 @@
-define("../../models/CrudModel.js",['Sauron'], function (Sauron) {
+define("CrudModel",['Sauron'], function (Sauron) {
   function noop() {}
   /**
    * Constructor for CRUD Model

@@ -27,7 +27,7 @@ test('can be created', function () {
 
   // Load CrudModel
   stop();
-  require(['mvc!m/CrudModel'], function (CrudModel) {
+  require(['CrudModel'], function (CrudModel) {
     start();
 
     // Create the model
@@ -45,7 +45,7 @@ test('can be created with a memory mixin', function () {
 
   // Load CrudModel
   stop();
-  require(['Sauron', 'mvc!m/CrudModel'], function (Sauron, CrudModel) {
+  require(['Sauron', 'CrudModel'], function (Sauron, CrudModel) {
     start();
 
     // Create the model

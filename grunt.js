@@ -34,10 +34,10 @@ module.exports = function(grunt) {
       Sauron: rjsDefine('Sauron'),
       Builder: rjsDefine('Builder'),
       mvc: rjsDefine('mvc'),
-      BaseController: rjsDefine.js({module: 'BaseController', file: '../../controllers/BaseController'}),
-      HtmlController: rjsDefine.js({module: 'HtmlController', file: '../../controllers/HtmlController'}),
-      CrudModel: rjsDefine.js({module: 'CrudModel', file: '../../models/CrudModel'}),
-      SocketModel: rjsDefine.js({module: 'SocketModel', file: '../../models/SocketModel'})
+      BaseController: rjsDefine({module: 'BaseController', file: '../../controllers/BaseController'}),
+      HtmlController: rjsDefine({module: 'HtmlController', file: '../../controllers/HtmlController'}),
+      CrudModel: rjsDefine({module: 'CrudModel', file: '../../models/CrudModel'}),
+      SocketModel: rjsDefine({module: 'SocketModel', file: '../../models/SocketModel'})
     },
 
     // Concatenate and minify repository

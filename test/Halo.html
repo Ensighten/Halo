@@ -15,7 +15,12 @@
 
       // Custom routes for controllers/models due to src organization
       // This is mvc!c/HtmlController
-      '../../src/controllers': '../src/public/js',
+      'paths': {
+        'BaseController': '../../controllers/BaseController',
+        'HtmlController': '../../controllers/HtmlController',
+        'CrudModel': '../../models/CrudModel',
+        'SocketModel': '../../models/SocketModel'
+      }
     });
   </script>
   <!-- Load test. -->

@@ -36,7 +36,7 @@ test('when started, appends content to the container and when stopped, removes c
 
   // Load HtmlController
   stop();
-  require(['Sauron', 'jquery', 'mvc!c/HtmlController'], function (Sauron, $, HtmlController) {
+  require(['Sauron', 'jquery', 'HtmlController'], function (Sauron, $, HtmlController) {
     start();
 
     // Create the model

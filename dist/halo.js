@@ -1,4 +1,4 @@
-/*! Halo - v1.0.0 - 2013-01-15
+/*! halo-mvc - v1.0.0 - 2013-01-19
 * https://github.com/Ensighten/Halo
 * Copyright (c) 2013 Ensighten; Licensed MIT */
 
@@ -16058,16 +16058,16 @@ define("mvc",function () {
       // Load models and controllers as JS and views via the text plugin
       switch (type) {
         case 'm':
-          dir = paths._modelDir || '../../models';
+          dir = paths._modelDir || 'models';
           ext = paths._modelExt || '.js';
           break;
         case 'v':
           prefix = 'text!';
-          dir = paths._viewDir || '../../views';
+          dir = paths._viewDir || 'views';
           ext = paths._viewExt || '.html';
           break;
         case 'c':
-          dir = paths._controllerDir || '../../controllers';
+          dir = paths._controllerDir || 'controllers';
           ext = paths._controllerExt || '.js';
           break;
       }
@@ -16080,7 +16080,7 @@ define("mvc",function () {
     }
   };
 });
-define("../../controllers/BaseController.js",['Sauron'], function (Sauron) {
+define("BaseController",['Sauron'], function (Sauron) {
   function noop() {}
 
   /**
@@ -16115,7 +16115,7 @@ define("../../controllers/BaseController.js",['Sauron'], function (Sauron) {
   // Return the BaseController template
   return BaseController;
 });
-define("../../controllers/HtmlController.js",['Sauron', 'jquery', 'mvc!c/BaseController'], function (Sauron, $, BaseController) {
+define("HtmlController",['Sauron', 'jquery', 'BaseController'], function (Sauron, $, BaseController) {
   function noop() {}
   function autoCallback(callback) {
     callback();
@@ -16238,7 +16238,7 @@ define("../../controllers/HtmlController.js",['Sauron', 'jquery', 'mvc!c/BaseCon
   return HtmlController;
 });
 
-define("../../models/CrudModel.js",['Sauron'], function (Sauron) {
+define("CrudModel",['Sauron'], function (Sauron) {
   function noop() {}
   /**
    * Constructor for CRUD Model
@@ -16357,7 +16357,7 @@ define("../../models/CrudModel.js",['Sauron'], function (Sauron) {
   return CrudModel;
 });
 /*global io:true*/
-define("../../models/SocketModel.js",['Sauron', 'mvc!m/CrudModel', 'socket.io'], function (Sauron, CrudModel, io) {
+define("SocketModel",['Sauron', 'CrudModel', 'socket.io'], function (Sauron, CrudModel, io) {
   // Create a socket which proxies all requests
   var href = window.location.href,
       isSecure = href.slice(0, 5) === 'https',
@@ -16367,7 +16367,7 @@ define("../../models/SocketModel.js",['Sauron', 'mvc!m/CrudModel', 'socket.io'],
   /**
    * Wrapped constructor for CrudModel with socket.io. The socket is accessible via this.socket.
    * @param {Object} params Param object
-   * @param {Function} [params.channel] Channel to listen to in socket.io
+   * @param {Function} [params.channel] Channel to listen to in socket.io. By default, this is params.name
    * @param {Function} [params.createEvent] Action to take for a create event from the server
    * @param {Function} [params.retrieveEvent] Action to take for a retrieve event from the server
    * @param {Function} [params.updateEvent] Action to take for an update event from the server

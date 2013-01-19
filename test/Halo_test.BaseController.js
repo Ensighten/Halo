@@ -27,7 +27,7 @@ test('can be created', function () {
 
   // Load BaseController
   stop();
-  require(['mvc!c/BaseController'], function (BaseController) {
+  require(['BaseController'], function (BaseController) {
     start();
 
     // Create the model
@@ -45,7 +45,7 @@ test('can when started, calls `start`', function () {
 
   // Load BaseController
   stop();
-  require(['Sauron', 'mvc!c/BaseController'], function (Sauron, BaseController) {
+  require(['Sauron', 'BaseController'], function (Sauron, BaseController) {
     start();
 
     // Create the model
@@ -77,7 +77,7 @@ test('can when stopped, calls `stop`', function() {
 
   // Load BaseController
   stop();
-  require(['Sauron', 'mvc!c/BaseController'], function (Sauron, BaseController) {
+  require(['Sauron', 'BaseController'], function (Sauron, BaseController) {
     start();
 
     // Create the model
