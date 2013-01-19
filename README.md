@@ -63,6 +63,7 @@ Each script is namespaced within require.js to its own filename (except for [req
 | [socket.io][socketio]   | `socket.io`          | Cross-browser WebSocket implementation.                                              |
 | [Sauron][sauron]        | `Sauron`             | Mediator which provides a channel system for talking between models and controllers. |
 | [Builder][builder]      | `Builder`            | Build chain for client-side MVC views. You will `<3` me later.                       |
+| [text][text]      | `text`            | [require.js plugin][requirejs-plugin] which loads text files. This is a dependency for our [mvc routing library](#mvc).
 
 [requirejs]: http://requirejs.org/
 [jquery]: http://jquery.com
@@ -70,6 +71,7 @@ Each script is namespaced within require.js to its own filename (except for [req
 [socketio]: https://github.com/LearnBoost/socket.io-client
 [Sauron]: https://github.com/Ensighten/Sauron
 [Builder]: https://github.com/Ensighten/Builder
+[text]: http://requirejs.org/docs/download.html#text
 
 ### Framework-specific libraries
 
