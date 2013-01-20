@@ -26,7 +26,7 @@ define(function () {
         // Iterate the mixinKeys and attach them to params
         for (i = 0, len = mixinKeys.length; i < len; i++) {
           mixinKey = mixinKeys[i];
-          mixin = MIXINS[mixinKey];
+          mixin = mixins[mixinKey];
 
           // If the mixin exists, attach it to params
           if (mixin) {

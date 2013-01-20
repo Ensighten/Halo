@@ -63,10 +63,10 @@ define(['Sauron', 'PrimalClay'], function (Sauron, PrimalClay) {
   }
 
   // Add PrimalClay enhancements
-  CrudModel = PrimalClay(CrudModel);
+  var $CrudModel = PrimalClay(CrudModel);
 
   // Add memory mixin
-  var addMixin = CrudModel.addMixin;
+  var addMixin = $CrudModel.addMixin;
   addMixin('memory', function memoryMixin (params) {
     // Bind memory store to params
     var memory = {};
@@ -88,5 +88,5 @@ define(['Sauron', 'PrimalClay'], function (Sauron, PrimalClay) {
   // Sauron.on().createModel('CrudModel', CrudModel);
 
   // Return model for proper timing currently
-  return CrudModel;
+  return $CrudModel;
 });

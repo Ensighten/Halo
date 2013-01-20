@@ -1,4 +1,4 @@
-/*! halo-mvc - v1.2.0 - 2013-01-19
+/*! halo-mvc - v1.2.1 - 2013-01-19
 * https://github.com/Ensighten/Halo
 * Copyright (c) 2013 Ensighten; Licensed MIT */
 
@@ -16549,7 +16549,7 @@ define("HtmlController",['Sauron', 'jquery', 'BaseController'], function (Sauron
   // Return HtmlController template
   return HtmlController;
 });
-define("CrudModel",['Sauron'], function (Sauron) {
+define("CrudModel",['Sauron', 'PrimalClay'], function (Sauron, PrimalClay) {
   function noop() {}
   /**
    * Constructor for CRUD Model
@@ -16560,7 +16560,6 @@ define("CrudModel",['Sauron'], function (Sauron) {
    * @param {Function} [params.update] Function for updates in the model
    * @param {Function} [params.delete] Function for deletion in the model
    * @param {String|String[]} [params.mixin] Items to mixin to the model (e.g. memory, persist)
-   * @param {String} [params.persistKey] Subnamespace for persistent memory
    */
   function CrudModel(params, callback) {
     if ( !params ) { throw Error('You must give a params object when constructing a CrudModel'); }
@@ -16568,31 +16567,6 @@ define("CrudModel",['Sauron'], function (Sauron) {
 
     if( !name ) {
       throw Error('Must specify name for a model');
-    }
-
-    // If there are mixins specified
-    var mixinKey = params.mixin,
-        mixinKeys = mixinKey,
-        mixin,
-        i,
-        len;
-    if (mixinKeys !== undefined) {
-      // If the mixinKeys are a string, upcast to an array
-      if (typeof mixinKeys === 'string') {
-        mixinKeys = [mixinKey];
-      }
-
-      // Iterate the mixinKeys and attach them to params
-      for (i = 0, len = mixinKeys.length; i < len; i++) {
-        mixinKey = mixinKeys[i];
-        mixin = MIXINS[mixinKey];
-
-        // If the mixin exists
-        if (mixin !== undefined) {
-          // Attach it to params
-          params = mixin(params);
-        }
-      }
     }
 
     // For each method, add a Sauron listener
@@ -16639,33 +16613,33 @@ define("CrudModel",['Sauron'], function (Sauron) {
     return {};
   }
 
-  var MIXINS = {
-    'memory': function (params) {
-      // Bind memory store to params
-      var memory = {};
-      params.memory = {
-        'set': function (key, val) {
-          memory[key] = val;
-        },
-        'get': function (key) {
-          return memory[key];
-        },
-        'clear': function () {
-          memory = {};
-        }
-      };
+  // Add PrimalClay enhancements
+  var $CrudModel = PrimalClay(CrudModel);
 
-      // Return the modified params
-      return params;
-    }
-  };
+  // Add memory mixin
+  var addMixin = $CrudModel.addMixin;
+  addMixin('memory', function memoryMixin (params) {
+    // Bind memory store to params
+    var memory = {};
+    params.memory = {
+      'set': function (key, val) {
+        memory[key] = val;
+      },
+      'get': function (key) {
+        return memory[key];
+      },
+      'clear': function () {
+        memory = {};
+      }
+    };
+  });
 
   // DEPRECATED: In very first iteration, we used asynchronous templating. Unfortunately, it disagreed with the synchronous require.js model.
   // // Subscribe to creation channel
   // Sauron.on().createModel('CrudModel', CrudModel);
 
   // Return model for proper timing currently
-  return CrudModel;
+  return $CrudModel;
 });
 /*global io:true*/
 define("SocketModel",['Sauron', 'CrudModel', 'socket.io'], function (Sauron, CrudModel, io) {
