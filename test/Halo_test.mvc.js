@@ -20,6 +20,9 @@
     raises(block, [expected], [message])
 */
 
+// If this is not a dist test, skip it
+if (window.location.href.indexOf('dist') !== -1) {
+
 module('mvc');
 
 test('can resolve views', function () {
@@ -35,20 +38,30 @@ test('can resolve views', function () {
   });
 });
 
-// test('can resolve models', function () {
-//   expect(1);
+test('can resolve models', function () {
+  expect(1);
 
-//   // Define our model at the expected path
-//   define('models/user', function () {
-//     return 'a';
-//   });
+  // Load the model
+  stop();
+  require(['mvc!m/user'], function (model) {
+    start();
 
-//   // Load the model
-//   stop();
-//   require(['mvc!m/user'], function (model) {
-//     start();
+    // Assert it is what we expected
+    strictEqual(model, 'a');
+  });
+});
 
-//     // Assert it is what we expected
-//     strictEqual(model, 'a');
-//   });
-// });
+test('can resolve controllers', function () {
+  expect(1);
+
+  // Load the controller (defined in Halo.stubs.js)
+  stop();
+  require(['mvc!c/main'], function (controller) {
+    start();
+
+    // Assert it is what we expected
+    strictEqual(controller, 'b');
+  });
+});
+
+}

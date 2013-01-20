@@ -8,17 +8,21 @@
   <script src="libs/qunit/qunit.js"></script>
   <!-- Load dist file. -->
   <script src="../dist/halo.js"></script>
+  <!-- Load in stubs. -->
+  <script src="Halo.stubs.js"></script>
   <!-- Remove window.define since everything should be handled by dist. -->
   <script>
   var _define = window.define;
-  window.define = function () {};
+  window.define = function () {
+    console.log('window.define has been removed for testing purposes.');
+  };
   </script>
   <!-- Configure require.js. -->
   <script>
     // Load from test_files for views
     require.config({
       'paths': {
-        '_viewDir': '../../../test/test_files/views'
+        '_viewDir': 'test_files/views'
       }
     });
   </script>

@@ -1,4 +1,4 @@
-/*! halo-mvc - v1.1.1 - 2013-01-19
+/*! halo-mvc - v1.2.0 - 2013-01-19
 * https://github.com/Ensighten/Halo
 * Copyright (c) 2013 Ensighten; Licensed MIT */
 
@@ -16386,7 +16386,7 @@ define("mvc",function () {
 
       // Generate the URI to load
       var uri = prefix + baseUrl + dir + '/' + file + ext;
-
+console.log(uri);
       //  up the module and return it
       require([uri], onLoad);
     }
