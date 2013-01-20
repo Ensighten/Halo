@@ -8,7 +8,7 @@
   define: false, window: false, process: false, Packages: false,
   java: false, location: false */
 
-define(['module'], function (module) {
+define('text',['module'], function (module) {
     'use strict';
 
     var text, fs,
@@ -186,7 +186,7 @@ define(['module'], function (module) {
             if (buildMap.hasOwnProperty(moduleName)) {
                 var content = text.jsEscape(buildMap[moduleName]);
                 write.asModule(pluginName + "!" + moduleName,
-                               "define(function () { return '" +
+                               "define('text',function () { return '" +
                                    content +
                                "';});\n");
             }

@@ -13,6 +13,15 @@
   var _define = window.define;
   window.define = function () {};
   </script>
+  <!-- Configure require.js. -->
+  <script>
+    // Load from test_files for views
+    require.config({
+      'paths': {
+        '_viewDir': '../../../test/test_files/views'
+      }
+    });
+  </script>
   <!-- Load test. -->
   <script>
     (function () {

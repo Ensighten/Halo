@@ -34,6 +34,7 @@ module.exports = function(grunt) {
       Sauron: rjsDefine('Sauron'),
       Builder: rjsDefine('Builder'),
       mvc: rjsDefine('mvc'),
+      text: rjsDefine({file: 'text', singleQuotes: true}),
       BaseController: rjsDefine({module: 'BaseController', file: '../../controllers/BaseController'}),
       HtmlController: rjsDefine({module: 'HtmlController', file: '../../controllers/HtmlController'}),
       CrudModel: rjsDefine({module: 'CrudModel', file: '../../models/CrudModel'}),
@@ -51,8 +52,11 @@ module.exports = function(grunt) {
           // Socket.io uses anonymous define
           'stage/public/js/socket.io.js',
 
-          // Then Sauron.require, Builder.require.jquery, and mvc
-          'stage/public/js/Sauron.js', 'stage/public/js/Builder.js', 'stage/public/js/mvc.js',
+          // Then Sauron.require, Builder.require.jquery
+          'stage/public/js/Sauron.js', 'stage/public/js/Builder.js',
+
+          // Then text and mvc
+          'stage/public/js/text.js', 'stage/public/js/mvc.js',
 
           // Then controllers
           'stage/controllers/BaseController.js', 'stage/controllers/HtmlController.js',

@@ -11,7 +11,7 @@
   <script>
     // Configure requirejs to load from src/public.
     require.config({
-      'baseUrl': '../src/public/js',
+      'baseUrl': '../src/public/js/',
 
       // Custom routes for controllers/models due to src organization
       // This is mvc!c/HtmlController
@@ -19,7 +19,8 @@
         'BaseController': '../../controllers/BaseController',
         'HtmlController': '../../controllers/HtmlController',
         'CrudModel': '../../models/CrudModel',
-        'SocketModel': '../../models/SocketModel'
+        'SocketModel': '../../models/SocketModel',
+        '_viewDir': '../../../../test/test_files/views'
       }
     });
   </script>

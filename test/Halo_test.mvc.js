@@ -25,35 +25,30 @@ module('mvc');
 test('can resolve views', function () {
   expect(1);
 
-  // Define our model at the expected path
-  define('models/user', function () {
-    return 'a';
-  });
-
-  // Load the model
+  // Load a view
   stop();
-  require(['mvc!m/user'], function (model) {
+  require(['mvc!v/main'], function (view) {
     start();
 
     // Assert it is what we expected
-    strictEqual(model, 'a');
+    strictEqual(view, '<div>Hello World!</div>');
   });
 });
 
-test('can resolve controllers', function () {
-  expect(1);
+// test('can resolve models', function () {
+//   expect(1);
 
-  // Define our model at the expected path
-  define('models/user', function () {
-    return 'a';
-  });
+//   // Define our model at the expected path
+//   define('models/user', function () {
+//     return 'a';
+//   });
 
-  // Load the model
-  stop();
-  require(['mvc!m/user'], function (model) {
-    start();
+//   // Load the model
+//   stop();
+//   require(['mvc!m/user'], function (model) {
+//     start();
 
-    // Assert it is what we expected
-    strictEqual(model, 'a');
-  });
-});
+//     // Assert it is what we expected
+//     strictEqual(model, 'a');
+//   });
+// });

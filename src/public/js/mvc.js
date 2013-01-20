@@ -3,8 +3,8 @@ define(function () {
     'load': function (name, req, onLoad, config) {
       // Determine the type and localize paths
       var type = name.charAt(0),
-          paths = config.paths,
-          baseUrl = config.baseUrl || '';
+          paths = config.paths;
+          // baseUrl = config.baseUrl || '';
 
       // Slice up string and set up fallbacks for path parts
       var file = name.substring(2),
@@ -29,7 +29,8 @@ define(function () {
       }
 
       // Generate the URI to load
-      var uri = prefix + baseUrl + dir + '/' + file + ext;
+      // var uri = prefix + baseUrl + dir + '/' + file + ext;
+      var uri = prefix + dir + '/' + file + ext;
 
       // Load up the module and return it
       require([uri], onLoad);

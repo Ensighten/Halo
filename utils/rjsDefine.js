@@ -2,7 +2,8 @@
 function rjsDefine(obj) {
   // Set up fallbacks for file and module
   var file = obj.file || obj,
-      module = obj.module || file;
+      module = obj.module || file,
+      quote = obj.singleQuotes ? "'" : '"';
 
   // Return the configuration for our require.js file
   return {
@@ -10,7 +11,7 @@ function rjsDefine(obj) {
     dest: 'stage/public/js/' + file + '.js',
     replacements: [{
       from: 'define(',
-      to: 'define("' + module + '",'
+      to: 'define(' + quote + module + quote + ','
     }]
   };
 }
