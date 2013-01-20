@@ -16386,8 +16386,8 @@ define("mvc",function () {
 
       // Generate the URI to load
       var uri = prefix + baseUrl + dir + '/' + file + ext;
-console.log(uri);
-      //  up the module and return it
+
+      // Load up the module and return it
       require([uri], onLoad);
     }
   };

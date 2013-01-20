@@ -20,9 +20,6 @@
     raises(block, [expected], [message])
 */
 
-// If this is not a dist test, skip it
-if (window.location.href.indexOf('dist') !== -1) {
-
 module('mvc');
 
 test('can resolve views', function () {
@@ -63,5 +60,3 @@ test('can resolve controllers', function () {
     strictEqual(controller, 'b');
   });
 });
-
-}
