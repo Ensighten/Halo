@@ -31,4 +31,13 @@
     "can be created": true,
     "has this.socket": true
   }
+}, {
+  "mvc": {
+// TODO: Coming soon
+    "can resolve models": true,
+// TODO: Coming soon
+    "can resolve controllers": true,
+// This is the one we care about first
+    "can resolve view": true
+  }
 }]
