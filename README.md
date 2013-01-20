@@ -108,6 +108,21 @@ URLs are constructed via `directory + '/' + module + extension`.
 [requirejs-plugin]: http://requirejs.org/docs/plugins.html
 [requirejs-config]: http://requirejs.org/docs/api.html#config
 
+#### PrimalClay
+`PrimalClay` adds a set of functions to controller and model templates.
+
+Currently, there is only `addMixin` which handles the common mixin logic across models and controllers.
+
+PrimalClay takes one parameter which is the constructor function to wrap.
+
+```js
+MyController.addMixin; // undefined
+var $MyController = PrimalClay(MyController);
+
+// Add a new mixin (myMixin) for MyController which processes params through myMixinFn
+$MyController.addMixin('myMixin', myMixinFn);
+```
+
 ### Models
 Halo comes with two model templates for usage: `CrudModel` and `SocketModel`.
 
