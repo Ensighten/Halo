@@ -1,4 +1,4 @@
-define(['Sauron'], function (Sauron) {
+define(['Sauron', 'PrimalClay'], function (Sauron, PrimalClay) {
   function noop() {}
 
   /**
@@ -30,6 +30,9 @@ define(['Sauron'], function (Sauron) {
     (callback || noop)();
   }
 
+  // Enable PrimalClay enhancements
+  var $BaseController = PrimalClay(BaseController);
+
   // Return the BaseController template
-  return BaseController;
+  return $BaseController;
 });
