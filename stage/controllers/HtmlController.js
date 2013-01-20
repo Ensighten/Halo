@@ -1,4 +1,4 @@
-define("HtmlController",['Sauron', 'jquery', 'BaseController'], function (Sauron, $, BaseController) {
+define("HtmlController",['Sauron', 'jquery', 'BaseController', 'PrimalClay'], function (Sauron, $, BaseController, PrimalClay) {
   function noop() {}
   function autoCallback(callback) {
     callback();
@@ -13,31 +13,6 @@ define("HtmlController",['Sauron', 'jquery', 'BaseController'], function (Sauron
    * @param {String|String[]} [params.mixin] Items to mixin to start and stop methods (currently none available)
    */
   function HtmlController(params, callback) {
-    // If there are mixins specified
-    var mixinKey = params.mixin,
-        mixinKeys = mixinKey,
-        mixin,
-        i,
-        len;
-    if (mixinKeys !== undefined) {
-      // If the mixinKeys are a string, upcast to an array
-      if (typeof mixinKeys === 'string') {
-        mixinKeys = [mixinKey];
-      }
-
-      // Iterate the mixinKeys and attach them to params
-      for (i = 0, len = mixinKeys.length; i < len; i++) {
-        mixinKey = mixinKeys[i];
-        mixin = MIXINS[mixinKey];
-
-        // If the mixin exists
-        if (mixin !== undefined) {
-          // Attach it to params
-          params = mixin(params);
-        }
-      }
-    }
-
     var start = params.start || autoCallback,
         stop  = params.stop || autoCallback,
         $html;
@@ -114,9 +89,9 @@ define("HtmlController",['Sauron', 'jquery', 'BaseController'], function (Sauron
     return BaseController(params);
   }
 
-  // Mixins placeholder
-  var MIXINS = {};
+  // Add PrimalClay enhancements
+  var $HtmlController = PrimalClay(HtmlController);
 
-  // Return HtmlController template
-  return HtmlController;
+  // Return $HtmlController template
+  return $HtmlController;
 });

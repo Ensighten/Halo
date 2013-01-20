@@ -1,5 +1,4 @@
-/*global io:true*/
-define("SocketModel",['Sauron', 'CrudModel', 'socket.io'], function (Sauron, CrudModel, io) {
+define("SocketModel",['Sauron', 'CrudModel', 'PrimalClay', 'socket.io'], function (Sauron, CrudModel, PrimalClay, io) {
   // Create a socket which proxies all requests
   var href = window.location.href,
       isSecure = href.slice(0, 5) === 'https',
@@ -34,31 +33,6 @@ define("SocketModel",['Sauron', 'CrudModel', 'socket.io'], function (Sauron, Cru
 
     // Bind socket to params
     params.socket = socket;
-
-    // If there are mixins specified
-    var mixinKey = params.mixin,
-        mixinKeys = mixinKey,
-        mixin,
-        i,
-        len;
-    if (mixinKeys !== undefined) {
-      // If the mixinKeys are a string, upcast to an array
-      if (typeof mixinKeys === 'string') {
-        mixinKeys = [mixinKey];
-      }
-
-      // Iterate the mixinKeys and attach them to params
-      for (i = 0, len = mixinKeys.length; i < len; i++) {
-        mixinKey = mixinKeys[i];
-        mixin = MIXINS[mixinKey];
-
-        // If the mixin exists
-        if (mixin !== undefined) {
-          // Attach it to params
-          params = mixin(params);
-        }
-      }
-    }
 
     function bindMethod(method, methodName) {
       // If the method exists, execute it in the parameters context (access to socket)
@@ -143,33 +117,33 @@ define("SocketModel",['Sauron', 'CrudModel', 'socket.io'], function (Sauron, Cru
     bindToSocketProto(bindTargetArr[i]);
   }
 
+  // Add PrimalClay enhancements
+  var $SocketModel = PrimalClay(SocketModel);
+
   // Set up mixins
-  var MIXINS = {
+  var addMixin = $SocketModel.addMixin;
+  addMixin('autoCRUD', function (params) {
     // If any CRUD method is not defined by model, fall it back to upstream requests to server
-    'autoCRUD': function (params) {
-      params.create = params.create || function autoSocketModelCreate () {
-        var socket = this.socket;
-        socket.create.apply(socket, arguments);
-      };
+    params.create = params.create || function autoSocketModelCreate () {
+      var socket = this.socket;
+      socket.create.apply(socket, arguments);
+    };
 
-      params.retrieve = params.retrieve || function autoSocketModelRetrieve () {
-        var socket = this.socket;
-        socket.retrieve.apply(socket, arguments);
-      };
+    params.retrieve = params.retrieve || function autoSocketModelRetrieve () {
+      var socket = this.socket;
+      socket.retrieve.apply(socket, arguments);
+    };
 
-      params.update = params.update || function autoSocketModelUpdate () {
-        var socket = this.socket;
-        socket.update.apply(socket, arguments);
-      };
+    params.update = params.update || function autoSocketModelUpdate () {
+      var socket = this.socket;
+      socket.update.apply(socket, arguments);
+    };
 
-      params['delete'] = params['delete'] || function autoSocketModelDelete () {
-        var socket = this.socket;
-        socket['delete'].apply(socket, arguments);
-      };
+    params['delete'] = params['delete'] || function autoSocketModelDelete () {
+      var socket = this.socket;
+      socket['delete'].apply(socket, arguments);
+    };
+  });
 
-      return params;
-    }
-  };
-
-  return SocketModel;
+  return $SocketModel;
 });

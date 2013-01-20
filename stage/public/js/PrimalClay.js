@@ -7,24 +7,22 @@ define("PrimalClay",function () {
     // Create a set of mixins for this constructor
     var mixins = {};
 
-    // Proxy over constructor
-    // TODO: Use a unified proxy (shared by models and controllers for params.start/stop adjustments)
-    // TODO: Move mixin bindings into separate exposed function
-    var retFn = function (params) {
-      // If there are mixins
-      var mixinKey = params.mixin,
-          mixinKeys = mixinKey,
-          mixin,
-          i,
-          len;
+    // TODO: Move to an OOP approach for mixins and such (more extensibility). Just don't go in the wrong direction like dev/primal.clay.oop
+    function bindMixins(params) {
+      // If there are mixins requested
+      var mixinKeys = params.mixin;
       if (mixinKeys) {
         // If the mixinKeys are a string, upcast to an array
         if (typeof mixinKeys === 'string') {
-          mixinKeys = [mixinKey];
+          mixinKeys = [mixinKeys];
         }
 
         // Iterate the mixinKeys and attach them to params
-        for (i = 0, len = mixinKeys.length; i < len; i++) {
+        var mixinKey,
+            mixin,
+            i = 0,
+            len = mixinKeys.length;
+        for (; i < len; i++) {
           mixinKey = mixinKeys[i];
           mixin = mixins[mixinKey];
 
@@ -35,16 +33,29 @@ define("PrimalClay",function () {
         }
       }
 
+      // Return params
+      return params;
+    }
+
+    // Proxy over constructor
+    // TODO: Use a unified proxy (shared by models and controllers for params.start/stop adjustments)
+    var retFn = function (params) {
+      // Bind mixins
+      params = bindMixins(params);
+
       // Call and return the original function
       return constructor.apply(this, arguments);
     };
 
-    // Create and expose helper method to add new mixins
+    // Helper method to add new mixins
     function addMixin(name, fn) {
       mixins[name] = fn;
     }
+
+    // Expose mixin parts
     retFn.addMixin = addMixin;
     retFn.mixins = mixins;
+    retFn.bindMixins = bindMixins;
 
     // Return the retFn
     return retFn;

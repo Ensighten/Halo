@@ -1,4 +1,4 @@
-/*! halo-mvc - v1.2.1 - 2013-01-19
+/*! halo-mvc - v1.3.0 - 2013-01-19
 * https://github.com/Ensighten/Halo
 * Copyright (c) 2013 Ensighten; Licensed MIT */
 
@@ -16401,24 +16401,22 @@ define("PrimalClay",function () {
     // Create a set of mixins for this constructor
     var mixins = {};
 
-    // Proxy over constructor
-    // TODO: Use a unified proxy (shared by models and controllers for params.start/stop adjustments)
-    // TODO: Move mixin bindings into separate exposed function
-    var retFn = function (params) {
-      // If there are mixins
-      var mixinKey = params.mixin,
-          mixinKeys = mixinKey,
-          mixin,
-          i,
-          len;
+    // TODO: Move to an OOP approach for mixins and such (more extensibility). Just don't go in the wrong direction like dev/primal.clay.oop
+    function bindMixins(params) {
+      // If there are mixins requested
+      var mixinKeys = params.mixin;
       if (mixinKeys) {
         // If the mixinKeys are a string, upcast to an array
         if (typeof mixinKeys === 'string') {
-          mixinKeys = [mixinKey];
+          mixinKeys = [mixinKeys];
         }
 
         // Iterate the mixinKeys and attach them to params
-        for (i = 0, len = mixinKeys.length; i < len; i++) {
+        var mixinKey,
+            mixin,
+            i = 0,
+            len = mixinKeys.length;
+        for (; i < len; i++) {
           mixinKey = mixinKeys[i];
           mixin = mixins[mixinKey];
 
@@ -16429,16 +16427,29 @@ define("PrimalClay",function () {
         }
       }
 
+      // Return params
+      return params;
+    }
+
+    // Proxy over constructor
+    // TODO: Use a unified proxy (shared by models and controllers for params.start/stop adjustments)
+    var retFn = function (params) {
+      // Bind mixins
+      params = bindMixins(params);
+
       // Call and return the original function
       return constructor.apply(this, arguments);
     };
 
-    // Create and expose helper method to add new mixins
+    // Helper method to add new mixins
     function addMixin(name, fn) {
       mixins[name] = fn;
     }
+
+    // Expose mixin parts
     retFn.addMixin = addMixin;
     retFn.mixins = mixins;
+    retFn.bindMixins = bindMixins;
 
     // Return the retFn
     return retFn;
@@ -16447,7 +16458,7 @@ define("PrimalClay",function () {
   // Return PrimalClay
   return PrimalClay;
 });
-define("BaseController",['Sauron'], function (Sauron) {
+define("BaseController",['Sauron', 'PrimalClay'], function (Sauron, PrimalClay) {
   function noop() {}
 
   /**
@@ -16479,10 +16490,13 @@ define("BaseController",['Sauron'], function (Sauron) {
     (callback || noop)();
   }
 
+  // Enable PrimalClay enhancements
+  var $BaseController = PrimalClay(BaseController);
+
   // Return the BaseController template
-  return BaseController;
+  return $BaseController;
 });
-define("HtmlController",['Sauron', 'jquery', 'BaseController'], function (Sauron, $, BaseController) {
+define("HtmlController",['Sauron', 'jquery', 'BaseController', 'PrimalClay'], function (Sauron, $, BaseController, PrimalClay) {
   function noop() {}
   function autoCallback(callback) {
     callback();
@@ -16497,31 +16511,6 @@ define("HtmlController",['Sauron', 'jquery', 'BaseController'], function (Sauron
    * @param {String|String[]} [params.mixin] Items to mixin to start and stop methods (currently none available)
    */
   function HtmlController(params, callback) {
-    // If there are mixins specified
-    var mixinKey = params.mixin,
-        mixinKeys = mixinKey,
-        mixin,
-        i,
-        len;
-    if (mixinKeys !== undefined) {
-      // If the mixinKeys are a string, upcast to an array
-      if (typeof mixinKeys === 'string') {
-        mixinKeys = [mixinKey];
-      }
-
-      // Iterate the mixinKeys and attach them to params
-      for (i = 0, len = mixinKeys.length; i < len; i++) {
-        mixinKey = mixinKeys[i];
-        mixin = MIXINS[mixinKey];
-
-        // If the mixin exists
-        if (mixin !== undefined) {
-          // Attach it to params
-          params = mixin(params);
-        }
-      }
-    }
-
     var start = params.start || autoCallback,
         stop  = params.stop || autoCallback,
         $html;
@@ -16598,11 +16587,11 @@ define("HtmlController",['Sauron', 'jquery', 'BaseController'], function (Sauron
     return BaseController(params);
   }
 
-  // Mixins placeholder
-  var MIXINS = {};
+  // Add PrimalClay enhancements
+  var $HtmlController = PrimalClay(HtmlController);
 
-  // Return HtmlController template
-  return HtmlController;
+  // Return $HtmlController template
+  return $HtmlController;
 });
 define("CrudModel",['Sauron', 'PrimalClay'], function (Sauron, PrimalClay) {
   function noop() {}
@@ -16696,8 +16685,7 @@ define("CrudModel",['Sauron', 'PrimalClay'], function (Sauron, PrimalClay) {
   // Return model for proper timing currently
   return $CrudModel;
 });
-/*global io:true*/
-define("SocketModel",['Sauron', 'CrudModel', 'socket.io'], function (Sauron, CrudModel, io) {
+define("SocketModel",['Sauron', 'CrudModel', 'PrimalClay', 'socket.io'], function (Sauron, CrudModel, PrimalClay, io) {
   // Create a socket which proxies all requests
   var href = window.location.href,
       isSecure = href.slice(0, 5) === 'https',
@@ -16732,31 +16720,6 @@ define("SocketModel",['Sauron', 'CrudModel', 'socket.io'], function (Sauron, Cru
 
     // Bind socket to params
     params.socket = socket;
-
-    // If there are mixins specified
-    var mixinKey = params.mixin,
-        mixinKeys = mixinKey,
-        mixin,
-        i,
-        len;
-    if (mixinKeys !== undefined) {
-      // If the mixinKeys are a string, upcast to an array
-      if (typeof mixinKeys === 'string') {
-        mixinKeys = [mixinKey];
-      }
-
-      // Iterate the mixinKeys and attach them to params
-      for (i = 0, len = mixinKeys.length; i < len; i++) {
-        mixinKey = mixinKeys[i];
-        mixin = MIXINS[mixinKey];
-
-        // If the mixin exists
-        if (mixin !== undefined) {
-          // Attach it to params
-          params = mixin(params);
-        }
-      }
-    }
 
     function bindMethod(method, methodName) {
       // If the method exists, execute it in the parameters context (access to socket)
@@ -16841,33 +16804,33 @@ define("SocketModel",['Sauron', 'CrudModel', 'socket.io'], function (Sauron, Cru
     bindToSocketProto(bindTargetArr[i]);
   }
 
+  // Add PrimalClay enhancements
+  var $SocketModel = PrimalClay(SocketModel);
+
   // Set up mixins
-  var MIXINS = {
+  var addMixin = $SocketModel.addMixin;
+  addMixin('autoCRUD', function (params) {
     // If any CRUD method is not defined by model, fall it back to upstream requests to server
-    'autoCRUD': function (params) {
-      params.create = params.create || function autoSocketModelCreate () {
-        var socket = this.socket;
-        socket.create.apply(socket, arguments);
-      };
+    params.create = params.create || function autoSocketModelCreate () {
+      var socket = this.socket;
+      socket.create.apply(socket, arguments);
+    };
 
-      params.retrieve = params.retrieve || function autoSocketModelRetrieve () {
-        var socket = this.socket;
-        socket.retrieve.apply(socket, arguments);
-      };
+    params.retrieve = params.retrieve || function autoSocketModelRetrieve () {
+      var socket = this.socket;
+      socket.retrieve.apply(socket, arguments);
+    };
 
-      params.update = params.update || function autoSocketModelUpdate () {
-        var socket = this.socket;
-        socket.update.apply(socket, arguments);
-      };
+    params.update = params.update || function autoSocketModelUpdate () {
+      var socket = this.socket;
+      socket.update.apply(socket, arguments);
+    };
 
-      params['delete'] = params['delete'] || function autoSocketModelDelete () {
-        var socket = this.socket;
-        socket['delete'].apply(socket, arguments);
-      };
+    params['delete'] = params['delete'] || function autoSocketModelDelete () {
+      var socket = this.socket;
+      socket['delete'].apply(socket, arguments);
+    };
+  });
 
-      return params;
-    }
-  };
-
-  return SocketModel;
+  return $SocketModel;
 });
