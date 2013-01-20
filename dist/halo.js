@@ -16356,8 +16356,8 @@ define("mvc",function () {
     'load': function (name, req, onLoad, config) {
       // Determine the type and localize paths
       var type = name.charAt(0),
-          paths = config.paths;
-          // baseUrl = config.baseUrl || '';
+          paths = config.paths,
+          baseUrl = config.baseUrl || '';
 
       // Slice up string and set up fallbacks for path parts
       var file = name.substring(2),
@@ -16374,6 +16374,9 @@ define("mvc",function () {
           prefix = 'text!';
           dir = paths._viewDir || 'views';
           ext = paths._viewExt || '.html';
+
+          // text! automatically injects (via req.toUrl) baseUrl
+          baseUrl = '';
           break;
         case 'c':
           dir = paths._controllerDir || 'controllers';
@@ -16382,10 +16385,9 @@ define("mvc",function () {
       }
 
       // Generate the URI to load
-      // var uri = prefix + baseUrl + dir + '/' + file + ext;
-      var uri = prefix + dir + '/' + file + ext;
+      var uri = prefix + baseUrl + dir + '/' + file + ext;
 
-      // Load up the module and return it
+      //  up the module and return it
       require([uri], onLoad);
     }
   };
