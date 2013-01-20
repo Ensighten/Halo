@@ -7,13 +7,6 @@ define(function () {
     // Create a set of mixins for this constructor
     var mixins = {};
 
-    // Create and expose helper method to add new mixins
-    function addMixin(name, fn) {
-      mixins[name] = fn;
-    }
-    constructor.addMixin = addMixin;
-    constructor.mixins = mixins;
-
     // Proxy over constructor
     // TODO: Use a unified proxy (shared by models and controllers for params.start/stop adjustments)
     // TODO: Move mixin bindings into separate exposed function
@@ -45,6 +38,16 @@ define(function () {
       // Call and return the original function
       return constructor.apply(this, arguments);
     };
+
+    // Create and expose helper method to add new mixins
+    function addMixin(name, fn) {
+      mixins[name] = fn;
+    }
+    retFn.addMixin = addMixin;
+    retFn.mixins = mixins;
+
+    // Return the retFn
+    return retFn;
   }
 
   // Return PrimalClay
