@@ -1,5 +1,6 @@
 define(['Sauron', 'PrimalClay'], function (Sauron, PrimalClay) {
   function noop() {}
+
   /**
    * Constructor for CRUD Model
    * @param {Object} params Parameters for configuring the model

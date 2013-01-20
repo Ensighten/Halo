@@ -1,18 +1,19 @@
 define(function () {
   /**
-   * Constructor wrapper that makes mixins and proxying easier
-   * @param {Function} constructor
+   * Constructor for PrimalClay bindings
    */
-  function PrimalClay(constructor) {
-    // Create a set of mixins for this constructor
-    var mixins = {};
-
-    // Proxy over constructor
-    // TODO: Use a unified proxy (shared by models and controllers for params.start/stop adjustments)
-    // TODO: Move mixin bindings into separate exposed function
-    var retFn = function (params) {
-      // If there are mixins
-      var mixinKey = params.mixin,
+  function Clay() {
+    this.mixins = {};
+  }
+  Clay.prototype = {
+    'addMixin': function (name, fn) {
+      this.mixins[name] = fn;
+    },
+    // Bind mixins onto params
+    'bindMixins': function (params) {
+      // If there mixins are requested
+      var mixins = this.mixins,
+          mixinKey = params.mixin,
           mixinKeys = mixinKey,
           mixin,
           i,
@@ -34,6 +35,34 @@ define(function () {
           }
         }
       }
+
+      // Return params
+      return params;
+    },
+    // Bind addMixin and
+    'bind': function (fn) {
+      var that = this;
+      fn.addMixin = function () {
+        return that.addMixin.apply(that, arguments);
+      };
+      fn.mixins = that.mixins;
+      fn.bindMixins = function () {
+        return that.bindMixins.apply(that, arguments);
+      };
+    }
+  };
+
+  /**
+   * Constructor wrapper that makes mixins and proxying easier
+   * @param {Function} constructor
+   */
+  function PrimalClay(constructor) {
+    // Create a new Clay for this constructor
+
+    // Proxy over constructor
+    // TODO: Use a unified proxy (shared by models and controllers for params.start/stop adjustments)
+    // TODO: Move mixin bindings into separate exposed function
+    var retFn = function (params) {
 
       // Call and return the original function
       return constructor.apply(this, arguments);
