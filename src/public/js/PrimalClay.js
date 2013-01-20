@@ -39,7 +39,6 @@ define(function () {
 
     // Proxy over constructor
     // TODO: Use a unified proxy (shared by models and controllers for params.start/stop adjustments)
-    // TODO: Move mixin bindings into separate exposed function
     var retFn = function (params) {
       // Bind mixins
       params = bindMixins(params);
@@ -48,12 +47,15 @@ define(function () {
       return constructor.apply(this, arguments);
     };
 
-    // Create and expose helper method to add new mixins
+    // Helper method to add new mixins
     function addMixin(name, fn) {
       mixins[name] = fn;
     }
+
+    // Expose mixin parts
     retFn.addMixin = addMixin;
     retFn.mixins = mixins;
+    retFn.bindMixins = bindMixins;
 
     // Return the retFn
     return retFn;
