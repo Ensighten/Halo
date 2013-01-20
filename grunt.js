@@ -35,6 +35,7 @@ module.exports = function(grunt) {
       Builder: rjsDefine('Builder'),
       mvc: rjsDefine('mvc'),
       text: rjsDefine({file: 'text', singleQuotes: true}),
+      PrimalClay: rjsDefine('PrimalClay'),
       BaseController: rjsDefine({module: 'BaseController', file: '../../controllers/BaseController'}),
       HtmlController: rjsDefine({module: 'HtmlController', file: '../../controllers/HtmlController'}),
       CrudModel: rjsDefine({module: 'CrudModel', file: '../../models/CrudModel'}),
@@ -57,6 +58,9 @@ module.exports = function(grunt) {
 
           // Then text and mvc
           'stage/public/js/text.js', 'stage/public/js/mvc.js',
+
+          // Then PrimalClay
+          'stage/public/js/PrimalClay.js',
 
           // Then controllers
           'stage/controllers/BaseController.js', 'stage/controllers/HtmlController.js',
