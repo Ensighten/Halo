@@ -1,4 +1,4 @@
-define(['Sauron'], function (Sauron) {
+define(['Sauron', 'PrimalClay'], function (Sauron, PrimalClay) {
   function noop() {}
   /**
    * Constructor for CRUD Model
@@ -9,7 +9,6 @@ define(['Sauron'], function (Sauron) {
    * @param {Function} [params.update] Function for updates in the model
    * @param {Function} [params.delete] Function for deletion in the model
    * @param {String|String[]} [params.mixin] Items to mixin to the model (e.g. memory, persist)
-   * @param {String} [params.persistKey] Subnamespace for persistent memory
    */
   function CrudModel(params, callback) {
     if ( !params ) { throw Error('You must give a params object when constructing a CrudModel'); }
@@ -17,31 +16,6 @@ define(['Sauron'], function (Sauron) {
 
     if( !name ) {
       throw Error('Must specify name for a model');
-    }
-
-    // If there are mixins specified
-    var mixinKey = params.mixin,
-        mixinKeys = mixinKey,
-        mixin,
-        i,
-        len;
-    if (mixinKeys !== undefined) {
-      // If the mixinKeys are a string, upcast to an array
-      if (typeof mixinKeys === 'string') {
-        mixinKeys = [mixinKey];
-      }
-
-      // Iterate the mixinKeys and attach them to params
-      for (i = 0, len = mixinKeys.length; i < len; i++) {
-        mixinKey = mixinKeys[i];
-        mixin = MIXINS[mixinKey];
-
-        // If the mixin exists
-        if (mixin !== undefined) {
-          // Attach it to params
-          params = mixin(params);
-        }
-      }
     }
 
     // For each method, add a Sauron listener
@@ -88,26 +62,26 @@ define(['Sauron'], function (Sauron) {
     return {};
   }
 
-  var MIXINS = {
-    'memory': function (params) {
-      // Bind memory store to params
-      var memory = {};
-      params.memory = {
-        'set': function (key, val) {
-          memory[key] = val;
-        },
-        'get': function (key) {
-          return memory[key];
-        },
-        'clear': function () {
-          memory = {};
-        }
-      };
+  // Add PrimalClay enhancements
+  CrudModel = PrimalClay(CrudModel);
 
-      // Return the modified params
-      return params;
-    }
-  };
+  // Add memory mixin
+  var addMixin = CrudModel.addMixin;
+  addMixin('memory', function memoryMixin (params) {
+    // Bind memory store to params
+    var memory = {};
+    params.memory = {
+      'set': function (key, val) {
+        memory[key] = val;
+      },
+      'get': function (key) {
+        return memory[key];
+      },
+      'clear': function () {
+        memory = {};
+      }
+    };
+  });
 
   // DEPRECATED: In very first iteration, we used asynchronous templating. Unfortunately, it disagreed with the synchronous require.js model.
   // // Subscribe to creation channel
