@@ -38,7 +38,7 @@ test('can resolve views', function () {
 test('can resolve models', function () {
   expect(1);
 
-  // Load the model
+  // Load the model (defined in Halo.stubs.js)
   stop();
   require(['mvc!m/user'], function (model) {
     start();
